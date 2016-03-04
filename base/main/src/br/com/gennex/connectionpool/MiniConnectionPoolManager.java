@@ -76,7 +76,6 @@ public class MiniConnectionPoolManager {
          * @see java.lang.Comparable#compareTo(java.lang.Object)
          */
 
-        @Override
         public int compareTo(PCTS other) {
             return (int) (other.getTimeStamp().getTimeInMillis() - this
                     .getTimeStamp().getTimeInMillis());
