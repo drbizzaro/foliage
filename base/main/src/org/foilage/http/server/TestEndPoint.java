@@ -1,5 +1,10 @@
 package org.foilage.http.server;
 
+import org.foilage.http.html.ComponentGroup;
+import org.foilage.http.html.body.*;
+import org.foilage.http.html.head.*;
+import org.foilage.model.MimeType;
+
 import java.util.List;
 
 public class TestEndPoint extends WWWEndPoint<TestResponseData> {
