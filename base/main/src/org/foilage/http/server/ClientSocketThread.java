@@ -32,7 +32,6 @@ public class ClientSocketThread implements Runnable {
 
         Logger.info("Call: " + Thread.currentThread().getName() + " count: " + Thread.activeCount());
 
-
         try {
 
             OutputStream out = socket.getOutputStream();

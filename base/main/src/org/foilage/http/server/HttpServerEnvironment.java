@@ -15,6 +15,8 @@ public class HttpServerEnvironment {
 
     private final int bufferSize;
 
+    private final boolean sessionsActive;
+
     private final File dataFilesRoot;
 
     private final List<ServerEndPoint> endPointList;
@@ -25,11 +27,12 @@ public class HttpServerEnvironment {
 
     private final List<Locale> availableLanguages;
 
-    public HttpServerEnvironment(String serverName, int port, int bufferSize, File dataFilesRoot, List<ServerEndPoint> endPointList, List<ServerEndPoint> errorEndPointList, ServerEndPoint defaultErrorEndPoint, List<Locale> availableLanguages) {
+    public HttpServerEnvironment(String serverName, int port, int bufferSize, boolean sessionsActive, File dataFilesRoot, List<ServerEndPoint> endPointList, List<ServerEndPoint> errorEndPointList, ServerEndPoint defaultErrorEndPoint, List<Locale> availableLanguages) {
 
         this.serverName = serverName;
         this.port = port;
         this.bufferSize = bufferSize;
+        this.sessionsActive = sessionsActive;
         this.dataFilesRoot = dataFilesRoot;
         this.endPointList = endPointList;
         this.errorEndPointList = errorEndPointList;

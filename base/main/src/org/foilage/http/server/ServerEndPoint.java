@@ -70,6 +70,12 @@ public abstract class ServerEndPoint <R extends ResponseData> {
         sb.append(serverEnv.getServerName());
         sb.append("\r\n");
 
+        SessionObject session = SessionStore.I.getSession(req.getHeader("X-FOILAGE-SESSION-ID"), "");
+        sb.append("Set-Cookie:");
+        sb.append("X-FOILAGE-SESSION-ID=");
+        sb.append(session.getSessionId());
+        sb.append("\r\n");
+
         sb.append("Connection: close\r\n");
         sb.append("\r\n");
         sb.append(responseData);
