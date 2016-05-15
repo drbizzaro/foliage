@@ -79,7 +79,7 @@ public enum SessionStore {
 
     private SessionObject addSession(String ip) {
 
-        SessionObject sessionObject = new SessionObject(Now.date(), Now.date(), Base64.encode((Math.random()*10000000000000L+ip+System.currentTimeMillis()).getBytes()), ip);
+        SessionObject sessionObject = new SessionObject(Now.date(), Now.date(), Base64.encode((Math.random()*10000000000000L+ip+System.currentTimeMillis()).getBytes()), ip, true);
 
         activeMap.put(sessionObject.getSessionId(), sessionObject);
 

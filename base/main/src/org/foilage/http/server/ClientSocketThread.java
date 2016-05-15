@@ -1,5 +1,6 @@
 package org.foilage.http.server;
 
+import org.foilage.authorization.exceptions.NotAuthenticatedException;
 import org.foilage.authorization.exceptions.NotAuthorizedException;
 import org.foilage.http.RequestMethod;
 import org.foilage.http.StatusCode;
@@ -40,6 +41,9 @@ public class ClientSocketThread implements Runnable {
             try {
 
                 RequestData req = RequestReader.INSTANCE.readInData(socket.getInputStream(), serverEnv.getBufferSize());
+
+                req.setSession(SessionStore.I.getSession(req.getHeader("cookie"), ""));
+                errorRequest.setSession(req.getSession());
 
                 Logger.debug(req.getMethod().name());
 
@@ -89,6 +93,10 @@ public class ClientSocketThread implements Runnable {
                         Logger.info(e.getMessage());
                     }
 
+                } catch(NotAuthenticatedException e) {
+
+
+
                 } catch (NotAuthorizedException e) {
 
                     out.write(serverEnv.findErrorEndPointByStatusCode(StatusCode.FORBIDDEN_403).renderEndPointResponse(serverEnv, errorRequest, new ResponseDataImpl(StatusCode.NOT_FOUND_404)));
@@ -121,7 +129,9 @@ public class ClientSocketThread implements Runnable {
 
     }
 
-    private void authorize(ServerEndPoint endPoint, List<Integer> roleList) throws NotAuthorizedException {
+    private void authorize(ServerEndPoint endPoint, List<Integer> roleList) throws NotAuthenticatedException, NotAuthorizedException {
+
+        boolean denied = false;
 
         boolean authorized = false;
 
@@ -129,7 +139,14 @@ public class ClientSocketThread implements Runnable {
 
             if(endPoint.getDenyRoles().contains(role)) {
 
-                throw new NotAuthorizedException();
+                if(role==0) {
+
+                    throw new NotAuthenticatedException();
+
+                } else {
+
+                    denied = true;
+                }
             }
 
             if(endPoint.getAccessRoles().contains(role)) {
@@ -138,7 +155,7 @@ public class ClientSocketThread implements Runnable {
             }
         }
 
-        if(!authorized) {
+        if(!authorized || denied) {
 
             throw new NotAuthorizedException();
         }

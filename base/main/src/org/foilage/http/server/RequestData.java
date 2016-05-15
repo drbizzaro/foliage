@@ -25,6 +25,7 @@ public class RequestData {
         this.url = notNull(url);
         this.headerMap = notNull(headerMap);
         this.requestMap = notNull(requestMap);
+
     }
 
     public RequestMethod getMethod() {

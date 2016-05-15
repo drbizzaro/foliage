@@ -81,13 +81,14 @@ public abstract class ServerEndPoint <R extends ResponseData> {
         sb.append(serverEnv.getServerName());
         sb.append("\r\n");
 
-        if(serverEnv.isSessionsActive() && !SessionStore.I.hasSession(req.getHeader("cookie"), "")) {
+        if(serverEnv.isSessionsActive() && req.getSession().isCreateClientCookie()) {
 
-            SessionObject session = SessionStore.I.getSession(req.getHeader("cookie"), "");
             sb.append("Set-Cookie:");
             sb.append("X-FOILAGE-SESSION-ID=");
-            sb.append(session.getSessionId());
+            sb.append(req.getSession().getSessionId());
             sb.append("\r\n");
+
+            req.getSession().setCreateClientCookie(false);
         }
 
         sb.append("Connection: close\r\n");

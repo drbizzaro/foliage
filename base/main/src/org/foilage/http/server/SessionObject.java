@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import static org.foilage.utils.checkers.NullChecker.notNull;
+
 public class SessionObject {
 
     private Date createdDate;
@@ -18,13 +20,16 @@ public class SessionObject {
 
     private int userId;
 
-    public SessionObject(Date createdDate, Date lastActionDate, String sessionId, String ipAddress) {
-        this.createdDate = createdDate;
-        this.lastActionDate = lastActionDate;
-        this.sessionId = sessionId;
-        this.ipAddress = ipAddress;
+    private boolean createClientCookie;
+
+    public SessionObject(Date createdDate, Date lastActionDate, String sessionId, String ipAddress, boolean createClientCookie) {
+        this.createdDate = notNull(createdDate);
+        this.lastActionDate = notNull(lastActionDate);
+        this.sessionId = notNull(sessionId);
+        this.ipAddress = notNull(ipAddress);
         this.roleList = Arrays.asList(0);
         this.userId = 0;
+        this.createClientCookie = createClientCookie;
     }
 
     public Date getCreatedDate() {
@@ -73,5 +78,13 @@ public class SessionObject {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public boolean isCreateClientCookie() {
+        return createClientCookie;
+    }
+
+    public void setCreateClientCookie(boolean createClientCookie) {
+        this.createClientCookie = createClientCookie;
     }
 }
