@@ -30,7 +30,8 @@ public class ClientSocketThread implements Runnable {
     @Override
     public void run() {
 
-        Logger.info("Call: " + Thread.currentThread().getName() + " count: " + Thread.activeCount());
+        Logger.debug("Call: " + Thread.currentThread().getName() + " count: " + Thread.activeCount());
+        long startTime = System.currentTimeMillis();
 
         try {
 
@@ -40,7 +41,7 @@ public class ClientSocketThread implements Runnable {
 
                 RequestData req = RequestReader.INSTANCE.readInData(socket.getInputStream(), serverEnv.getBufferSize());
 
-                Logger.info(req.getMethod().name());
+                Logger.debug(req.getMethod().name());
 
                 try {
 
@@ -55,6 +56,8 @@ public class ClientSocketThread implements Runnable {
                     } else {
 
                         ServerEndPoint endPoint = serverEnv.findEndPointByUrl(req.getUrl());
+
+                        authorize(endPoint, req.getSession().getRoleList());
 
                         ResponseData resp = endPoint.createResponseData();
 
@@ -75,7 +78,7 @@ public class ClientSocketThread implements Runnable {
 
                     } catch (NotAuthorizedException ex) {
 
-                        out.write(serverEnv.findErrorEndPointByStatusCode(StatusCode.NOT_FOUND_404).renderEndPointResponse(serverEnv, errorRequest, new ResponseDataImpl(StatusCode.NOT_FOUND_404)));
+                        out.write(serverEnv.findErrorEndPointByStatusCode(StatusCode.FORBIDDEN_403).renderEndPointResponse(serverEnv, errorRequest, new ResponseDataImpl(StatusCode.NOT_FOUND_404)));
 
                         Logger.error(e.getMessage());
 
@@ -88,7 +91,7 @@ public class ClientSocketThread implements Runnable {
 
                 } catch (NotAuthorizedException e) {
 
-                    out.write(serverEnv.findErrorEndPointByStatusCode(StatusCode.NOT_FOUND_404).renderEndPointResponse(serverEnv, errorRequest, new ResponseDataImpl(StatusCode.NOT_FOUND_404)));
+                    out.write(serverEnv.findErrorEndPointByStatusCode(StatusCode.FORBIDDEN_403).renderEndPointResponse(serverEnv, errorRequest, new ResponseDataImpl(StatusCode.NOT_FOUND_404)));
 
                     Logger.error(e.getMessage());
 
@@ -113,5 +116,32 @@ public class ClientSocketThread implements Runnable {
 
             Logger.error(e.getMessage());
         }
+
+        Logger.debug("Call time in milliseconds: "+(System.currentTimeMillis()-startTime));
+
     }
+
+    private void authorize(ServerEndPoint endPoint, List<Integer> roleList) throws NotAuthorizedException {
+
+        boolean authorized = false;
+
+        for(Integer role: roleList) {
+
+            if(endPoint.getDenyRoles().contains(role)) {
+
+                throw new NotAuthorizedException();
+            }
+
+            if(endPoint.getAccessRoles().contains(role)) {
+
+                authorized = true;
+            }
+        }
+
+        if(!authorized) {
+
+            throw new NotAuthorizedException();
+        }
+    }
+
 }

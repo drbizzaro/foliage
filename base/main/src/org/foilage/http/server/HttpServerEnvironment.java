@@ -52,6 +52,10 @@ public class HttpServerEnvironment {
         return bufferSize;
     }
 
+    public boolean isSessionsActive() {
+        return sessionsActive;
+    }
+
     public File getDataFilesRoot() {
         return dataFilesRoot;
     }

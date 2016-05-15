@@ -5,6 +5,8 @@ import org.pmw.tinylog.Logger;
 
 import java.util.Map;
 
+import static org.foilage.utils.checkers.NullChecker.notNull;
+
 public class RequestData {
 
     private final RequestMethod method;
@@ -15,12 +17,14 @@ public class RequestData {
 
     private final Map<String,String> requestMap;
 
+    private SessionObject session = null;
+
     public RequestData(RequestMethod method, String url, Map<String, String> headerMap, Map<String,String> requestMap) {
 
-        this.method = method;
-        this.url = url;
-        this.headerMap = headerMap;
-        this.requestMap = requestMap;
+        this.method = notNull(method);
+        this.url = notNull(url);
+        this.headerMap = notNull(headerMap);
+        this.requestMap = notNull(requestMap);
     }
 
     public RequestMethod getMethod() {
@@ -61,5 +65,13 @@ public class RequestData {
 
             return Integer.MIN_VALUE;
         }
+    }
+
+    public SessionObject getSession() {
+        return session;
+    }
+
+    public void setSession(SessionObject session) {
+        this.session = session;
     }
 }

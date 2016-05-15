@@ -1,6 +1,7 @@
 package org.foilage.http.server;
 
 import org.foilage.utils.DateUtil;
+import org.pmw.tinylog.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,25 +16,35 @@ public abstract class ServerEndPoint <R extends ResponseData> {
 
     private final boolean catchAllBelow;
 
+    private final List<Integer> accessRoles;
+
+    private final List<Integer> denyRoles;
+
     protected final List<LogicWorker> preRenderLogicList;
 
-    protected ServerEndPoint(List<String> path) {
+    protected ServerEndPoint(List<String> path, List<Integer> accessRoles, List<Integer> denyRoles) {
 
         this.path = path;
+        this.accessRoles = accessRoles;
+        this.denyRoles = denyRoles;
         this.catchAllBelow = false;
         this.preRenderLogicList = new ArrayList<>();
     }
 
-    protected ServerEndPoint(List<String> path, List<LogicWorker> preRenderLogicList) {
+    protected ServerEndPoint(List<String> path, List<Integer> accessRoles, List<Integer> denyRoles, List<LogicWorker> preRenderLogicList) {
 
         this.path = path;
+        this.accessRoles = accessRoles;
+        this.denyRoles = denyRoles;
         this.catchAllBelow = false;
         this.preRenderLogicList = preRenderLogicList;
     }
 
-    protected ServerEndPoint(List<String> path, boolean catchAllBelow, List<LogicWorker> preRenderLogicList) {
+    protected ServerEndPoint(List<String> path, List<Integer> accessRoles, List<Integer> denyRoles, boolean catchAllBelow, List<LogicWorker> preRenderLogicList) {
 
         this.path = path;
+        this.accessRoles = accessRoles;
+        this.denyRoles = denyRoles;
         this.catchAllBelow = catchAllBelow;
         this.preRenderLogicList = preRenderLogicList;
     }
@@ -70,16 +81,22 @@ public abstract class ServerEndPoint <R extends ResponseData> {
         sb.append(serverEnv.getServerName());
         sb.append("\r\n");
 
-        SessionObject session = SessionStore.I.getSession(req.getHeader("X-FOILAGE-SESSION-ID"), "");
-        sb.append("Set-Cookie:");
-        sb.append("X-FOILAGE-SESSION-ID=");
-        sb.append(session.getSessionId());
-        sb.append("\r\n");
+        if(serverEnv.isSessionsActive() && !SessionStore.I.hasSession(req.getHeader("cookie"), "")) {
+
+            SessionObject session = SessionStore.I.getSession(req.getHeader("cookie"), "");
+            sb.append("Set-Cookie:");
+            sb.append("X-FOILAGE-SESSION-ID=");
+            sb.append(session.getSessionId());
+            sb.append("\r\n");
+        }
 
         sb.append("Connection: close\r\n");
         sb.append("\r\n");
         sb.append(responseData);
         sb.append("\r\n");
+
+        Logger.debug("-------------RESPONSE-------------");
+        Logger.debug(sb.toString());
 
         return sb.toString().getBytes();
     }
@@ -87,4 +104,12 @@ public abstract class ServerEndPoint <R extends ResponseData> {
     protected abstract String renderSpecificEndPointResponse(HttpServerEnvironment serverEnv, RequestData req, R resp);
 
     protected abstract R createResponseData();
+
+    public List<Integer> getAccessRoles() {
+        return accessRoles;
+    }
+
+    public List<Integer> getDenyRoles() {
+        return denyRoles;
+    }
 }

@@ -9,12 +9,12 @@ import static org.foilage.http.StatusCode.NOT_IMPLEMENTED_501;
 
 public abstract class RestEndPoint extends ServerEndPoint {
 
-    protected RestEndPoint(List<String> path, List<LogicWorker> preRenderLogicList) {
-        super(path, preRenderLogicList);
+    protected RestEndPoint(List<String> path, List<Integer> accessRoles, List<Integer> denyRoles, List<LogicWorker> preRenderLogicList) {
+        super(path, accessRoles, denyRoles, preRenderLogicList);
     }
 
-    protected RestEndPoint(List<String> path, boolean catchAllBelow, List<LogicWorker> preRenderLogicList) {
-        super(path, catchAllBelow, preRenderLogicList);
+    protected RestEndPoint(List<String> path, List<Integer> accessRoles, List<Integer> denyRoles, boolean catchAllBelow, List<LogicWorker> preRenderLogicList) {
+        super(path, accessRoles, denyRoles, catchAllBelow, preRenderLogicList);
     }
 
     public byte[] renderEndPointResponse(HttpServerEnvironment serverEnv, RequestData req, ResponseDataImpl resp) {

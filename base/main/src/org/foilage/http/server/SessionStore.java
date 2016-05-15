@@ -20,6 +20,31 @@ public enum SessionStore {
         this.activeMap = new HashMap<>();
     }
 
+    public boolean hasSession(String sessionId, String ip) {
+
+        if(sessionId==null || sessionId.length()==0) {
+
+            return false;
+
+        } else {
+
+            String id = sessionId.replace("X-FOILAGE-SESSION-ID=", "");
+
+            SessionObject obj = activeMap.get(id);
+
+            if (obj == null) {
+
+                return false;
+
+            } else {
+
+                obj.setLastActionDate(Now.date());
+
+                return true;
+            }
+        }
+    }
+
     public SessionObject getSession(String sessionId, String ip) {
 
         if(sessionId==null || sessionId.length()==0) {
@@ -28,7 +53,9 @@ public enum SessionStore {
 
         } else {
 
-            SessionObject obj = activeMap.get(sessionId);
+            String id = sessionId.replace("X-FOILAGE-SESSION-ID=", "");
+
+            SessionObject obj = activeMap.get(id);
 
             if (obj == null) {
 

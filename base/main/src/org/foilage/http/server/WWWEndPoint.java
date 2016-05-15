@@ -4,16 +4,16 @@ import java.util.List;
 
 public abstract class WWWEndPoint<R extends ResponseData> extends ServerEndPoint<R> {
 
-    protected WWWEndPoint(List<String> path) {
-        super(path);
+    protected WWWEndPoint(List<String> path, List<Integer> accessRoles, List<Integer> denyRoles) {
+        super(path, accessRoles, denyRoles);
     }
 
-    protected WWWEndPoint(List<String> path, List<LogicWorker> preRenderLogicList) {
-        super(path, preRenderLogicList);
+    protected WWWEndPoint(List<String> path, List<Integer> accessRoles, List<Integer> denyRoles, List<LogicWorker> preRenderLogicList) {
+        super(path, accessRoles, denyRoles, preRenderLogicList);
     }
 
-    protected WWWEndPoint(List<String> path, boolean catchAllBelow, List<LogicWorker> preRenderLogicList) {
-        super(path, catchAllBelow, preRenderLogicList);
+    protected WWWEndPoint(List<String> path, List<Integer> accessRoles, List<Integer> denyRoles, boolean catchAllBelow, List<LogicWorker> preRenderLogicList) {
+        super(path, accessRoles, denyRoles, catchAllBelow, preRenderLogicList);
     }
 
     @Override

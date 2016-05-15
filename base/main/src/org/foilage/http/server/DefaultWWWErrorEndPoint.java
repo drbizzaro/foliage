@@ -1,5 +1,7 @@
 package org.foilage.http.server;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DefaultWWWErrorEndPoint extends WWWEndPoint {
@@ -9,7 +11,7 @@ public class DefaultWWWErrorEndPoint extends WWWEndPoint {
     private final String text;
 
     public DefaultWWWErrorEndPoint(List<String> path, String headLine, String text) {
-        super(path);
+        super(path, Arrays.asList(1), new ArrayList<Integer>());
 
         this.headline = headLine;
         this.text =text;

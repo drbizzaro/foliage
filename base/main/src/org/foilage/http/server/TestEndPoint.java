@@ -5,12 +5,14 @@ import org.foilage.http.html.body.*;
 import org.foilage.http.html.head.*;
 import org.foilage.model.MimeType;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TestEndPoint extends WWWEndPoint<TestResponseData> {
 
     public TestEndPoint(List<String> path, List<LogicWorker> preRenderLogicList) {
-        super(path, preRenderLogicList);
+        super(path, Arrays.asList(1), new ArrayList<Integer>(), preRenderLogicList);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package org.foilage.http.server;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class SessionObject {
 
@@ -12,11 +14,17 @@ public class SessionObject {
 
     private String ipAddress;
 
+    private List<Integer> roleList;
+
+    private int userId;
+
     public SessionObject(Date createdDate, Date lastActionDate, String sessionId, String ipAddress) {
         this.createdDate = createdDate;
         this.lastActionDate = lastActionDate;
         this.sessionId = sessionId;
         this.ipAddress = ipAddress;
+        this.roleList = Arrays.asList(0);
+        this.userId = 0;
     }
 
     public Date getCreatedDate() {
@@ -49,5 +57,21 @@ public class SessionObject {
 
     public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
+    }
+
+    public List<Integer> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Integer> roleList) {
+        this.roleList = roleList;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }
