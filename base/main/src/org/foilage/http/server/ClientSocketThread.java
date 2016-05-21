@@ -95,7 +95,7 @@ public class ClientSocketThread implements Runnable {
 
                 } catch(NotAuthenticatedException e) {
 
-
+                    out.write(serverEnv.findErrorEndPointByStatusCode(StatusCode.NOT_AUTHORIZED_401).renderEndPointResponse(serverEnv, errorRequest, new ResponseDataImpl(StatusCode.NOT_AUTHORIZED_401)));
 
                 } catch (NotAuthorizedException e) {
 

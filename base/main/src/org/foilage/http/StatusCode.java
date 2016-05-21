@@ -10,7 +10,7 @@ public enum StatusCode {
     MULTIPLE_CHOICES_300(300, "Multiple Choices"), MOVED_PERMANENTLY_301(301, "Moved Permanently"), FOUND_302(302, "Found"),
     SEE_OTHER_303(303, "See Other"), USE_PROXY_305(305, "Use Proxy"), TEMPORARY_REDIRECT_307(307, "Temporary Redirect"),
 
-    BAD_REQUEST_400(400, "Bad Request"), PAYMENT_REQUIRED_402(402, "Payment Required"), FORBIDDEN_403(403, "Forbidden"),
+    BAD_REQUEST_400(400, "Bad Request"), NOT_AUTHORIZED_401(401, "Not authorized"), PAYMENT_REQUIRED_402(402, "Payment Required"), FORBIDDEN_403(403, "Forbidden"),
     NOT_FOUND_404(404, "Not Found"), METHOD_NOT_ALLOWED_405(405, "Method Not Allowed"), NOT_ACCEPTABLE_406(406, "Not Acceptable"),
     REQUEST_TIMEOUT_408(408, "Request Timeout"), CONFLICT_409(409, "Conflict"), GONE_410(410, "Gone"),
     LENGTH_REQUIRED_411(411, "Length Required"), PAYLOAD_TO_LARGE_413(413, "Payload Too Large"), URI_TO_LONG_414(414, "URI Too Long"),

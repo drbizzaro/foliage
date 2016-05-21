@@ -88,7 +88,7 @@ public class HttpServerEnvironment {
 
             for(String path: pathList) {
 
-                if(path.equalsIgnoreCase(statusCode.getName())) {
+                if(path.equalsIgnoreCase(statusCode.getId()+"")) {
 
                     return endPoint;
                 }
