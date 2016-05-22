@@ -1,8 +1,8 @@
-package org.foilage.http.html;
+package org.foilage.http.html.body;
 
 public enum Target {
 
-    BLANK("_blank"), PARENT("_parent"), SELF("_self"), TOP("_top");
+    BLANK("_blank"), SELF("_self");
 
     private String value;
 

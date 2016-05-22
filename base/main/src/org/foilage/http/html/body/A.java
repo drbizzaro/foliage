@@ -2,7 +2,6 @@ package org.foilage.http.html.body;
 
 import org.foilage.http.html.BaseEventComponentBuilder;
 import org.foilage.http.html.HtmlComponentImpl;
-import org.foilage.http.html.Target;
 import org.foilage.http.html.Util;
 import org.foilage.model.MimeType;
 

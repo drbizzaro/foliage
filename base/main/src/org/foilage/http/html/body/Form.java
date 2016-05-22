@@ -1,9 +1,6 @@
 package org.foilage.http.html.body;
 
-import org.foilage.http.html.BaseEventComponentBuilder;
-import org.foilage.http.html.HtmlComponent;
-import org.foilage.http.html.HtmlComponentImpl;
-import org.foilage.http.html.Util;
+import org.foilage.http.html.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +20,56 @@ public class Form extends HtmlComponentImpl {
 
         htmlBuilder.append("<form");
 
+        if(builder.acceptCharset!=null) {
+
+            htmlBuilder.append("accept-charset=\"");
+            htmlBuilder.append(builder.acceptCharset.getEncoding());
+            htmlBuilder.append("\" ");
+        }
+
         if(builder.action!=null) {
 
             htmlBuilder.append("action=\"");
             htmlBuilder.append(builder.action);
-            htmlBuilder.append("\"");
+            htmlBuilder.append("\" ");
+        }
+
+        if(!builder.autocomplete) {
+
+            htmlBuilder.append("autocomplete=\"off\" ");
+        }
+
+        if(builder.enctype!=null) {
+
+            htmlBuilder.append("enctype=\"");
+            htmlBuilder.append(builder.enctype.getEncoding());
+            htmlBuilder.append("\" ");
+        }
+
+        if(builder.method!=null) {
+
+            htmlBuilder.append("method=\"");
+            htmlBuilder.append(builder.method.name().toLowerCase());
+            htmlBuilder.append("\" ");
+        }
+
+        if(builder.name!=null) {
+
+            htmlBuilder.append("name=\"");
+            htmlBuilder.append(builder.name);
+            htmlBuilder.append("\" ");
+        }
+
+        if(builder.novalidate) {
+
+            htmlBuilder.append("novalidate ");
+        }
+
+        if(builder.target!=null) {
+
+            htmlBuilder.append("target=\"");
+            htmlBuilder.append(builder.target.getValue());
+            htmlBuilder.append("\" ");
         }
 
         htmlBuilder.append(">\n");
@@ -44,7 +86,21 @@ public class Form extends HtmlComponentImpl {
 
         private List<HtmlComponent> components;
 
+        private CharacterSet acceptCharset = null;
+
         private String action = null;
+
+        private boolean autocomplete = true;
+
+        private EncodingType enctype = null;
+
+        private FormMethod method = null;
+
+        private String name = null;
+
+        private boolean novalidate = false;
+
+        private Target target = null;
 
         public Builder() {
             this.components = new ArrayList<>();
@@ -74,11 +130,43 @@ public class Form extends HtmlComponentImpl {
 
         private Builder action(String action) {
 
-            this.action = action;
-
-            return this;
+            this.action = action; return this;
         }
 
+        private Builder autocomplete(boolean autocomplete) {
+
+            this.autocomplete = autocomplete; return this;
+        }
+
+        private Builder characterSet(CharacterSet acceptCharset) {
+
+            this.acceptCharset = acceptCharset; return this;
+        }
+
+        private Builder enctype(EncodingType enctype) {
+
+            this.enctype = enctype; return this;
+        }
+
+        private Builder method(FormMethod method) {
+
+            this.method = method; return this;
+        }
+
+        private Builder name(String name) {
+
+            this.name = name; return this;
+        }
+
+        private Builder novalidate(boolean novalidate) {
+
+            this.novalidate = novalidate; return this;
+        }
+
+        private Builder target(Target target) {
+
+            this.target = target; return this;
+        }
     }
 
 }
