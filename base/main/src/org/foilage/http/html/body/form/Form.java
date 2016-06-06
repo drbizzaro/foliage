@@ -1,6 +1,8 @@
-package org.foilage.http.html.body;
+package org.foilage.http.html.body.form;
 
 import org.foilage.http.html.*;
+import org.foilage.http.html.body.EncodingType;
+import org.foilage.http.html.body.Target;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +38,7 @@ public class Form extends HtmlComponentImpl {
 
         if(!builder.autocomplete) {
 
-            htmlBuilder.append("autocomplete=\"off\" ");
+            htmlBuilder.append("autoComplete=\"off\" ");
         }
 
         if(builder.enctype!=null) {

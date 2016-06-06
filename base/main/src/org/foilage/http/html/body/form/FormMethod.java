@@ -1,4 +1,4 @@
-package org.foilage.http.html.body;
+package org.foilage.http.html.body.form;
 
 public enum FormMethod {
 
