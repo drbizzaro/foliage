@@ -45,6 +45,11 @@ public class ClientSocketThread implements Runnable {
                 req.setSession(SessionStore.I.getSession(req.getHeader("cookie"), ""));
                 errorRequest.setSession(req.getSession());
 
+                for(PreEndPointLogicWorker preWorker: serverEnv.getPreEndPointWorkers()) {
+
+                    preWorker.performLogic(serverEnv, req);
+                }
+
                 Logger.debug(req.getMethod().name());
 
                 try {

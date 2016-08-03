@@ -24,52 +24,52 @@ public class Form extends HtmlComponentImpl {
 
         if(builder.acceptCharset!=null) {
 
-            htmlBuilder.append("accept-charset=\"");
+            htmlBuilder.append(" accept-charset=\"");
             htmlBuilder.append(builder.acceptCharset.getEncoding());
             htmlBuilder.append("\" ");
         }
 
         if(builder.action!=null) {
 
-            htmlBuilder.append("action=\"");
+            htmlBuilder.append(" action=\"");
             htmlBuilder.append(builder.action);
             htmlBuilder.append("\" ");
         }
 
         if(!builder.autocomplete) {
 
-            htmlBuilder.append("autoComplete=\"off\" ");
+            htmlBuilder.append(" autoComplete=\"off\" ");
         }
 
         if(builder.enctype!=null) {
 
-            htmlBuilder.append("enctype=\"");
+            htmlBuilder.append(" enctype=\"");
             htmlBuilder.append(builder.enctype.getEncoding());
             htmlBuilder.append("\" ");
         }
 
         if(builder.method!=null) {
 
-            htmlBuilder.append("method=\"");
+            htmlBuilder.append(" method=\"");
             htmlBuilder.append(builder.method.name().toLowerCase());
             htmlBuilder.append("\" ");
         }
 
         if(builder.name!=null) {
 
-            htmlBuilder.append("name=\"");
+            htmlBuilder.append(" name=\"");
             htmlBuilder.append(builder.name);
             htmlBuilder.append("\" ");
         }
 
         if(builder.novalidate) {
 
-            htmlBuilder.append("novalidate ");
+            htmlBuilder.append(" novalidate ");
         }
 
         if(builder.target!=null) {
 
-            htmlBuilder.append("target=\"");
+            htmlBuilder.append(" target=\"");
             htmlBuilder.append(builder.target.getValue());
             htmlBuilder.append("\" ");
         }
@@ -96,7 +96,7 @@ public class Form extends HtmlComponentImpl {
 
         private EncodingType enctype = null;
 
-        private FormMethod method = null;
+        private FormMethod method = FormMethod.POST;
 
         private String name = null;
 
@@ -113,14 +113,14 @@ public class Form extends HtmlComponentImpl {
             return new Form(this);
         }
 
-        private Builder add(HtmlComponent component) {
+        public Builder add(HtmlComponent component) {
 
             this.components.add(component);
 
             return this;
         }
 
-        private Builder add(HtmlComponent... component) {
+        public Builder add(HtmlComponent... component) {
 
             for(HtmlComponent comp: component) {
 
@@ -130,42 +130,42 @@ public class Form extends HtmlComponentImpl {
             return this;
         }
 
-        private Builder action(String action) {
+        public Builder action(String action) {
 
             this.action = action; return this;
         }
 
-        private Builder autocomplete(boolean autocomplete) {
+        public Builder autocomplete(boolean autocomplete) {
 
             this.autocomplete = autocomplete; return this;
         }
 
-        private Builder characterSet(CharacterSet acceptCharset) {
+        public Builder characterSet(CharacterSet acceptCharset) {
 
             this.acceptCharset = acceptCharset; return this;
         }
 
-        private Builder enctype(EncodingType enctype) {
+        public Builder enctype(EncodingType enctype) {
 
             this.enctype = enctype; return this;
         }
 
-        private Builder method(FormMethod method) {
+        public Builder method(FormMethod method) {
 
             this.method = method; return this;
         }
 
-        private Builder name(String name) {
+        public Builder name(String name) {
 
             this.name = name; return this;
         }
 
-        private Builder novalidate(boolean novalidate) {
+        public Builder novalidate(boolean novalidate) {
 
             this.novalidate = novalidate; return this;
         }
 
-        private Builder target(Target target) {
+        public Builder target(Target target) {
 
             this.target = target; return this;
         }

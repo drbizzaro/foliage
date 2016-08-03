@@ -6,6 +6,8 @@ import org.pmw.tinylog.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.*;
 
 public enum RequestReader {
@@ -54,7 +56,16 @@ public enum RequestReader {
 
             String[] requestLine = requestDataLines.get(0).split("\\ ");
 
-            return new RequestData(parseRequestMethod(requestLine), parseRequestURL(requestLine), parseRequestMap(requestDataLines), parseParameterMap(requestLine[1]));
+            RequestMethod requestMethod = parseRequestMethod(requestLine);
+
+            Map<String,String> parameterMap = parseParameterMap(requestLine[1]);
+
+            if(requestMethod==RequestMethod.POST) {
+
+                parsePostParameters(parameterMap, requestDataLines.get(requestDataLines.size()-1));
+            }
+
+            return new RequestData(requestMethod, parseRequestURL(requestLine), parseHeaderMap(requestDataLines), parameterMap);
 
         } else{
 
@@ -89,7 +100,7 @@ public enum RequestReader {
         return 0;
     }
 
-    private Map<String,String> parseRequestMap(List<String> dataList) {
+    private Map<String,String> parseHeaderMap(List<String> dataList) {
 
         Map<String,String> requestMap = new HashMap<>();
 
@@ -132,16 +143,47 @@ public enum RequestReader {
 
                     String[] p = param.split("=");
 
-                    parameterMap.put(p[0], p[1]);
+                    parameterMap.put(p[0], URLDecoder.decode(p[1], "UTF-8"));
 
                 } catch (ArrayIndexOutOfBoundsException e) {
 
                     Logger.info("Malformed url parameter "+param);
+
+                } catch (UnsupportedEncodingException e) {
+
+                    Logger.error("Unsupported encoding url parameter "+param);
                 }
             }
         }
 
         return parameterMap;
+    }
+
+    private void parsePostParameters(Map<String,String> parameterMap, String parameterLine) {
+
+        for(String param: parameterLine.split("&")) {
+
+            if(param.contains("=")) {
+
+                String[] val = param.split("=");
+
+                if(val.length>1) {
+
+                    try {
+
+                        parameterMap.put(val[0], URLDecoder.decode(val[1], "UTF-8"));
+
+                    } catch (UnsupportedEncodingException e) {
+
+                        Logger.error("Unsupported encoding post parameter "+param);
+                    }
+
+                } else {
+
+                    parameterMap.put(val[0], "");
+                }
+            }
+        }
     }
 
 }

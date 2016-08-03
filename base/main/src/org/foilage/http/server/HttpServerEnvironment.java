@@ -19,6 +19,8 @@ public class HttpServerEnvironment {
 
     private final File dataFilesRoot;
 
+    private final List<PreEndPointLogicWorker> preEndPointWorkers;
+
     private final List<ServerEndPoint> endPointList;
 
     private final List<ServerEndPoint> errorEndPointList;
@@ -27,13 +29,14 @@ public class HttpServerEnvironment {
 
     private final List<Locale> availableLanguages;
 
-    public HttpServerEnvironment(String serverName, int port, int bufferSize, boolean sessionsActive, File dataFilesRoot, List<ServerEndPoint> endPointList, List<ServerEndPoint> errorEndPointList, ServerEndPoint defaultErrorEndPoint, List<Locale> availableLanguages) {
+    public HttpServerEnvironment(String serverName, int port, int bufferSize, boolean sessionsActive, File dataFilesRoot, List<PreEndPointLogicWorker> preEndPointWorkers, List<ServerEndPoint> endPointList, List<ServerEndPoint> errorEndPointList, ServerEndPoint defaultErrorEndPoint, List<Locale> availableLanguages) {
 
         this.serverName = serverName;
         this.port = port;
         this.bufferSize = bufferSize;
         this.sessionsActive = sessionsActive;
         this.dataFilesRoot = dataFilesRoot;
+        this.preEndPointWorkers = preEndPointWorkers;
         this.endPointList = endPointList;
         this.errorEndPointList = errorEndPointList;
         this.defaultErrorEndPoint = defaultErrorEndPoint;
@@ -58,6 +61,11 @@ public class HttpServerEnvironment {
 
     public File getDataFilesRoot() {
         return dataFilesRoot;
+    }
+
+    public List<PreEndPointLogicWorker> getPreEndPointWorkers() {
+
+        return preEndPointWorkers;
     }
 
     public ServerEndPoint findEndPointByUrl(String url) throws URLNotFoundException {

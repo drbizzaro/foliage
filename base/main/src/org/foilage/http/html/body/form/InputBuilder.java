@@ -97,32 +97,32 @@ public abstract class InputBuilder<T> extends BaseEventComponentBuilder<T> {
         this.autoFocus = autoFocus; return this;
     }
 
-    public InputBuilder disabled(boolean disable) {
+    public InputBuilder<T> disabled(boolean disable) {
 
         this.disabled = disable; return this;
     }
 
-    public InputBuilder form(String form) {
+    public InputBuilder<T> form(String form) {
 
         this.form = form; return this;
     }
 
-    public InputBuilder name(String name) {
+    public InputBuilder<T> name(String name) {
 
         this.name = name; return this;
     }
 
-    public InputBuilder pattern(String pattern) {
+    public InputBuilder<T> pattern(String pattern) {
 
         this.pattern = pattern; return this;
     }
 
-    public InputBuilder readonly(boolean readonly) {
+    public InputBuilder<T> readonly(boolean readonly) {
 
         this.readonly = readonly; return this;
     }
 
-    public InputBuilder value(String value) {
+    public InputBuilder<T> value(String value) {
 
         this.value = value; return this;
     }

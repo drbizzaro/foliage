@@ -24,11 +24,7 @@ public abstract class WWWEndPoint<R extends ResponseData> extends ServerEndPoint
         sb.append("<!DOCTYPE html>\n");
         sb.append("<html>\n");
 
-
-        //sb.append("\t<meta charset=\"UTF-8\">\n");
-
         sb.append(renderHead(req, resp));
-
         sb.append(renderBody(req, resp));
 
         sb.append("</html>");

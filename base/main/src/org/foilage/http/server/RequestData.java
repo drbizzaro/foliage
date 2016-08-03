@@ -15,16 +15,16 @@ public class RequestData {
 
     private final Map<String,String> headerMap;
 
-    private final Map<String,String> requestMap;
+    private final Map<String,String> parameterMap;
 
     private SessionObject session = null;
 
-    public RequestData(RequestMethod method, String url, Map<String, String> headerMap, Map<String,String> requestMap) {
+    public RequestData(RequestMethod method, String url, Map<String, String> headerMap, Map<String,String> parameterMap) {
 
         this.method = notNull(method);
         this.url = notNull(url);
         this.headerMap = notNull(headerMap);
-        this.requestMap = notNull(requestMap);
+        this.parameterMap = notNull(parameterMap);
 
     }
 
@@ -45,24 +45,29 @@ public class RequestData {
         return headerMap.get(header);
     }
 
-    public Map<String, String> getRequestMap() {
-        return requestMap;
+    public boolean hasParam(String parameter) {
+
+        return parameterMap.containsKey(parameter);
+    }
+
+    public Map<String, String> getParameterMap() {
+        return parameterMap;
     }
 
     public String getParam(String parameter) {
 
-        return requestMap.get(parameter);
+        return parameterMap.get(parameter);
     }
 
     public int getIntParam(String parameter) {
 
         try {
 
-            return Integer.parseInt(requestMap.get(parameter));
+            return Integer.parseInt(parameterMap.get(parameter));
 
         } catch (NumberFormatException e) {
 
-            Logger.info("In parameter " + parameter + " with value " + requestMap.get(parameter) + " not an integer.");
+            Logger.info("In parameter " + parameter + " with value " + parameterMap.get(parameter) + " not an integer.");
 
             return Integer.MIN_VALUE;
         }
