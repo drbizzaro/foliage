@@ -36,7 +36,7 @@ public class TextInput extends HtmlComponentImpl {
 
     }
 
-    public static class Builder extends InputBuilder<TextInput> {
+    public static class Builder extends InputBuilder<TextInput,Builder> {
 
         private String placeholder = null;
 

@@ -1,6 +1,6 @@
 package org.foilage.http.html;
 
-public abstract class BaseComponentBuilder<T> implements ComponentBuilder<T> {
+public abstract class BaseComponentBuilder<B,T> implements ComponentBuilder<B> {
 
     protected Character accessKey = null;
 
@@ -110,58 +110,58 @@ public abstract class BaseComponentBuilder<T> implements ComponentBuilder<T> {
         return html.toString();
     }
 
-    public BaseComponentBuilder<T> accessKey(Character accessKey) {
+    public T accessKey(Character accessKey) {
         this.accessKey = accessKey;
-        return this;
+        return (T)this;
     }
 
-    public BaseComponentBuilder<T> cssClass(String cssClass) {
+    public T cssClass(String cssClass) {
         this.cssClass = cssClass;
-        return this;
+        return (T)this;
     }
 
-    public BaseComponentBuilder<T> contentEditable(Boolean contentEditable) {
+    public T contentEditable(Boolean contentEditable) {
         this.contentEditable = contentEditable;
-        return this;
+        return (T)this;
     }
 
-    public BaseComponentBuilder<T> dir(TextDirection dir) {
+    public T dir(TextDirection dir) {
         this.dir = dir;
-        return this;
+        return (T)this;
     }
 
-    public BaseComponentBuilder<T> hidden(boolean hidden) {
+    public T hidden(boolean hidden) {
         this.hidden = hidden;
-        return this;
+        return (T)this;
     }
 
-    public BaseComponentBuilder<T> id(String id) {
+    public T id(String id) {
         this.id = id;
-        return this;
+        return (T)this;
     }
 
-    public BaseComponentBuilder<T> lang(String lang) {
+    public T lang(String lang) {
         this.lang = lang;
-        return this;
+        return (T)this;
     }
 
-    public BaseComponentBuilder<T> spellCheck(Boolean spellCheck) {
+    public T spellCheck(Boolean spellCheck) {
         this.spellCheck = spellCheck;
-        return this;
+        return (T)this;
     }
 
-    public BaseComponentBuilder<T> style(String style) {
+    public T style(String style) {
         this.style = style;
-        return this;
+        return (T)this;
     }
 
-    public BaseComponentBuilder<T> tabIndex(int tabIndex) {
+    public T tabIndex(int tabIndex) {
         this.tabIndex = tabIndex;
-        return this;
+        return (T)this;
     }
 
-    public BaseComponentBuilder<T> title(String title) {
+    public T title(String title) {
         this.title = title;
-        return this;
+        return (T)this;
     }
 }

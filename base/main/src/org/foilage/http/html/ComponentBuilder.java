@@ -1,6 +1,6 @@
 package org.foilage.http.html;
 
-public interface ComponentBuilder<T> {
+public interface ComponentBuilder<B> {
 
-    public T build();
+    public B build();
 }

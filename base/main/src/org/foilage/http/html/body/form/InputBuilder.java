@@ -2,7 +2,7 @@ package org.foilage.http.html.body.form;
 
 import org.foilage.http.html.BaseEventComponentBuilder;
 
-public abstract class InputBuilder<T> extends BaseEventComponentBuilder<T> {
+public abstract class InputBuilder<B,T> extends BaseEventComponentBuilder<B,T> {
 
     private boolean autoComplete = true;
 
@@ -87,44 +87,44 @@ public abstract class InputBuilder<T> extends BaseEventComponentBuilder<T> {
         return html.toString();
     }
 
-    public InputBuilder<T> autoComplete(boolean autoComplete) {
+    public T autoComplete(boolean autoComplete) {
 
-        this.autoComplete = autoComplete; return this;
+        this.autoComplete = autoComplete; return (T)this;
     }
 
-    public InputBuilder<T> autoFocus(boolean autoFocus) {
+    public T autoFocus(boolean autoFocus) {
 
-        this.autoFocus = autoFocus; return this;
+        this.autoFocus = autoFocus; return (T)this;
     }
 
-    public InputBuilder<T> disabled(boolean disable) {
+    public T disabled(boolean disable) {
 
-        this.disabled = disable; return this;
+        this.disabled = disable; return (T)this;
     }
 
-    public InputBuilder<T> form(String form) {
+    public T form(String form) {
 
-        this.form = form; return this;
+        this.form = form; return (T)this;
     }
 
-    public InputBuilder<T> name(String name) {
+    public T name(String name) {
 
-        this.name = name; return this;
+        this.name = name; return (T)this;
     }
 
-    public InputBuilder<T> pattern(String pattern) {
+    public T pattern(String pattern) {
 
-        this.pattern = pattern; return this;
+        this.pattern = pattern; return (T)this;
     }
 
-    public InputBuilder<T> readonly(boolean readonly) {
+    public T readonly(boolean readonly) {
 
-        this.readonly = readonly; return this;
+        this.readonly = readonly; return (T)this;
     }
 
-    public InputBuilder<T> value(String value) {
+    public T value(String value) {
 
-        this.value = value; return this;
+        this.value = value; return (T)this;
     }
 
 }

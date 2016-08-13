@@ -41,7 +41,7 @@ public class Label extends HtmlComponentImpl {
         htmlBuilder.append("</label>\n");
     }
 
-    public static class Builder extends BaseEventComponentBuilder<Label> {
+    public static class Builder extends BaseEventComponentBuilder<Label,Builder> {
 
         private String text;
 

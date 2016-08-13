@@ -39,7 +39,7 @@ public class H extends HtmlComponentImpl {
 
     }
 
-    public static class Builder extends BaseEventComponentBuilder<H> {
+    public static class Builder extends BaseEventComponentBuilder<H,Builder> {
 
         private final String size;
 

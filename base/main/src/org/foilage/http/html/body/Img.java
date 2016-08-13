@@ -49,7 +49,7 @@ public class Img extends HtmlComponentImpl {
         htmlBuilder.append(">\n");
     }
 
-    public static class Builder extends BaseEventComponentBuilder<Img> {
+    public static class Builder extends BaseEventComponentBuilder<Img,Builder> {
 
         private String alt = null;
 

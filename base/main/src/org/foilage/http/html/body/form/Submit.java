@@ -58,7 +58,7 @@ public class Submit extends HtmlComponentImpl {
 
     }
 
-    public static class Builder extends InputBuilder<Submit> {
+    public static class Builder extends InputBuilder<Submit,Builder> {
 
         private String formAction = null;
 

@@ -64,7 +64,7 @@ public class A extends HtmlComponentImpl {
         htmlBuilder.append("</a>\n");
     }
 
-    public static class Builder extends BaseEventComponentBuilder<A> {
+    public static class Builder extends BaseEventComponentBuilder<A, Builder> {
 
         //TODO: Implement download
 

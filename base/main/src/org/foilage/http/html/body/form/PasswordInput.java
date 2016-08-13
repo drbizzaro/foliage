@@ -36,7 +36,7 @@ public class PasswordInput extends HtmlComponentImpl {
 
     }
 
-    public static class Builder extends InputBuilder<PasswordInput> {
+    public static class Builder extends InputBuilder<PasswordInput,Builder> {
 
         private String placeholder = null;
 

@@ -84,7 +84,7 @@ public class Form extends HtmlComponentImpl {
         htmlBuilder.append("</form>\n");
     }
 
-    public static class Builder extends BaseEventComponentBuilder<Form> {
+    public static class Builder extends BaseEventComponentBuilder<Form,Builder> {
 
         private List<HtmlComponent> components;
 

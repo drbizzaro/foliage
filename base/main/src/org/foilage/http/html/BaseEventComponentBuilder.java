@@ -1,6 +1,6 @@
 package org.foilage.http.html;
 
-public abstract class BaseEventComponentBuilder<T> extends BaseComponentBuilder<T> implements ComponentBuilder<T> {
+public abstract class BaseEventComponentBuilder<B,T> extends BaseComponentBuilder<B,T> implements ComponentBuilder<B> {
 
     protected String onClick = null;
 
@@ -143,83 +143,83 @@ public abstract class BaseEventComponentBuilder<T> extends BaseComponentBuilder<
         return html.toString();
     }
 
-    public BaseEventComponentBuilder<T> onClick(String onClickEvent){
+    public T onClick(String onClickEvent){
         this.onClick = onClickEvent;
-        return this;
+        return (T)this;
     }
 
-    public BaseEventComponentBuilder<T> onDoubleClick(String onDoubleClickEvent){
+    public T onDoubleClick(String onDoubleClickEvent){
         this.onDoubleClick = onDoubleClickEvent;
-        return this;
+        return (T)this;
     }
 
-    public BaseEventComponentBuilder<T> onDrag(String onDragEvent){
+    public T onDrag(String onDragEvent){
         this.onDrag = onDragEvent;
-        return this;
+        return (T)this;
     }
 
-    public BaseEventComponentBuilder<T> onDragEnd(String onDragEndEvent){
+    public T onDragEnd(String onDragEndEvent){
         this.onDragEnd = onDragEndEvent;
-        return this;
+        return (T)this;
     }
 
-    public BaseEventComponentBuilder<T> onDragEnter(String onDragEnterEvent){
+    public T onDragEnter(String onDragEnterEvent){
         this.onDragEnter = onDragEnterEvent;
-        return this;
+        return (T)this;
     }
 
-    public BaseEventComponentBuilder<T> onDragLeave(String onDragLeaveEvent){
+    public T onDragLeave(String onDragLeaveEvent){
         this.onDragLeave = onDragLeaveEvent;
-        return this;
+        return (T)this;
     }
 
-    public BaseEventComponentBuilder<T> onDragOver(String onDragOverEvent){
+    public T onDragOver(String onDragOverEvent){
         this.onDragOver = onDragOverEvent;
-        return this;
+        return (T)this;
     }
 
-    public BaseEventComponentBuilder<T> onDragStart(String onDragStartEvent){
+    public T onDragStart(String onDragStartEvent){
         this.onDragStart = onDragStartEvent;
-        return this;
+        return (T)this;
     }
 
-    public BaseEventComponentBuilder<T> onDrop(String onDropEvent){
+    public T onDrop(String onDropEvent){
         this.onDrop = onDropEvent;
-        return this;
+        return (T)this;
     }
 
-    public BaseEventComponentBuilder<T> onMouseDown(String onMouseDownEvent){
+    public T onMouseDown(String onMouseDownEvent){
         this.onMouseDown = onMouseDownEvent;
-        return this;
+        return (T)this;
     }
 
-    public BaseEventComponentBuilder<T> onMouseMove(String onMouseMoveEvent){
+    public T onMouseMove(String onMouseMoveEvent){
         this.onMouseMove = onMouseMoveEvent;
-        return this;
+        return (T)this;
     }
 
-    public BaseEventComponentBuilder<T> onMouseOut(String onMouseOutEvent){
+    public T onMouseOut(String onMouseOutEvent){
         this.onMouseOut = onMouseOutEvent;
-        return this;
+        return (T)this;
     }
 
-    public BaseEventComponentBuilder<T> onMouseOver(String onMouseOverEvent){
+    public T onMouseOver(String onMouseOverEvent){
         this.onMouseOver = onMouseOverEvent;
-        return this;
+        return (T)this;
     }
 
-    public BaseEventComponentBuilder<T> onMouseUp(String onMouseUpEvent){
+    public T onMouseUp(String onMouseUpEvent){
         this.onMouseUp = onMouseUpEvent;
-        return this;
+        return (T)this;
     }
 
-    public BaseEventComponentBuilder<T> onScroll(String onScrollEvent){
+    public T onScroll(String onScrollEvent){
         this.onScroll = onScrollEvent;
-        return this;
+        return (T)this;
     }
 
-    public BaseEventComponentBuilder<T> onWheel(String onWheelEvent){
+    public T onWheel(String onWheelEvent){
         this.onWheel = onWheelEvent;
-        return this;
+        return (T)this;
     }
 }
