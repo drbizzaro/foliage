@@ -1,5 +1,6 @@
 package org.foilage.http.server;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +28,8 @@ public class SessionObject {
         this.lastActionDate = notNull(lastActionDate);
         this.sessionId = notNull(sessionId);
         this.ipAddress = notNull(ipAddress);
-        this.roleList = Arrays.asList(0);
+        this.roleList = new ArrayList<>();
+        this.roleList.add(0);
         this.userId = 0;
         this.createClientCookie = createClientCookie;
     }

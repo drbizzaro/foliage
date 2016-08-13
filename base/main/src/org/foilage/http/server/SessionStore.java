@@ -61,6 +61,10 @@ public enum SessionStore {
 
                 return addSession(ip);
 
+            } else if(!ip.equalsIgnoreCase(obj.getIpAddress())) {
+
+                return addSession(ip);
+
             } else {
 
                 if (Now.date().after(DateUtil.stepForward(obj.getLastActionDate(), maxIdle))) {

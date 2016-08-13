@@ -42,7 +42,7 @@ public class ClientSocketThread implements Runnable {
 
                 RequestData req = RequestReader.INSTANCE.readInData(socket.getInputStream(), serverEnv.getBufferSize());
 
-                req.setSession(SessionStore.I.getSession(req.getHeader("cookie"), ""));
+                req.setSession(SessionStore.I.getSession(req.getHeader("cookie"), socket.getRemoteSocketAddress().toString()));
                 errorRequest.setSession(req.getSession());
 
                 for(PreEndPointLogicWorker preWorker: serverEnv.getPreEndPointWorkers()) {
