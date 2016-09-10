@@ -21,6 +21,40 @@ public class GreaterThenZeroChecker {
         return variable;
     }
 
+    public static float greaterThenZero(float variable, String errorMessage) {
 
+        if(variable <= 0) {
+
+            Logger.error(errorMessage);
+
+            throw new IllegalArgumentException(errorMessage);
+        }
+
+        return variable;
+    }
+
+    public static long greaterThenZero(long variable, String errorMessage) {
+
+        if(variable <= 0) {
+
+            Logger.error(errorMessage);
+
+            throw new IllegalArgumentException(errorMessage);
+        }
+
+        return variable;
+    }
+
+    public static double greaterThenZero(double variable, String errorMessage) {
+
+        if(variable <= 0) {
+
+            Logger.error(errorMessage);
+
+            throw new IllegalArgumentException(errorMessage);
+        }
+
+        return variable;
+    }
 
 }

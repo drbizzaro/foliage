@@ -41,6 +41,7 @@ public abstract class ObjectPool<T> {
         {
             @Override
             public void run() {
+                System.out.println("Check "+pool.size());
                 int size = pool.size();
                 if (size < minIdle) {
                     int sizeToBeAdded = minIdle - size;
@@ -105,10 +106,10 @@ public abstract class ObjectPool<T> {
 
     private void initialize(final int minIdle) {
 
-        pool = new ConcurrentLinkedQueue<T>();
+        this.pool = new ConcurrentLinkedQueue<T>();
 
         for (int i = 0; i < minIdle; i++) {
-            pool.add(createObject());
+            this.pool.add(createObject());
         }
     }
 }
