@@ -1,5 +1,7 @@
 package org.foilage.http.server;
 
+import org.foilage.authorization.Role;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -17,7 +19,7 @@ public class SessionObject {
 
     private String ipAddress;
 
-    private List<Integer> roleList;
+    private List<Role> roleList;
 
     private int userId;
 
@@ -29,7 +31,7 @@ public class SessionObject {
         this.sessionId = notNull(sessionId);
         this.ipAddress = notNull(ipAddress);
         this.roleList = new ArrayList<>();
-        this.roleList.add(0);
+        this.roleList.add(Role.NOT_AUTHENTICATED);
         this.userId = 0;
         this.createClientCookie = createClientCookie;
     }
@@ -66,11 +68,11 @@ public class SessionObject {
         this.ipAddress = ipAddress;
     }
 
-    public List<Integer> getRoleList() {
+    public List<Role> getRoleList() {
         return roleList;
     }
 
-    public void setRoleList(List<Integer> roleList) {
+    public void setRoleList(List<Role> roleList) {
         this.roleList = roleList;
     }
 

@@ -1,5 +1,6 @@
 package org.foilage.http.server;
 
+import org.foilage.authorization.Role;
 import org.foilage.http.html.ComponentGroup;
 import org.foilage.http.html.body.*;
 import org.foilage.http.html.head.*;
@@ -12,7 +13,7 @@ import java.util.List;
 public class TestEndPoint extends WWWEndPoint<TestResponseData> {
 
     public TestEndPoint(List<String> path, List<LogicWorker> preRenderLogicList) {
-        super(path, Arrays.asList(1), new ArrayList<Integer>(), preRenderLogicList);
+        super(path, Arrays.asList(Role.ADMIN), new ArrayList<>(), preRenderLogicList);
     }
 
     @Override

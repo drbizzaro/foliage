@@ -1,5 +1,6 @@
 package org.foilage.http.server;
 
+import org.foilage.authorization.Role;
 import org.foilage.authorization.exceptions.NotAuthenticatedException;
 import org.foilage.authorization.exceptions.NotAuthorizedException;
 import org.foilage.http.RequestMethod;
@@ -134,17 +135,17 @@ public class ClientSocketThread implements Runnable {
 
     }
 
-    private void authorize(ServerEndPoint endPoint, List<Integer> roleList) throws NotAuthenticatedException, NotAuthorizedException {
+    private void authorize(ServerEndPoint endPoint, List<Role> roleList) throws NotAuthenticatedException, NotAuthorizedException {
 
         boolean denied = false;
 
         boolean authorized = false;
 
-        for(Integer role: roleList) {
+        for(Role role: roleList) {
 
             if(endPoint.getDenyRoles().contains(role)) {
 
-                if(role==0) {
+                if(role==Role.NOT_AUTHENTICATED) {
 
                     throw new NotAuthenticatedException();
 

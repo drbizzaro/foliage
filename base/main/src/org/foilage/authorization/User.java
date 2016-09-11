@@ -1,5 +1,7 @@
 package org.foilage.authorization;
 
+import java.util.List;
+
 public interface User {
 
     int getId();
@@ -8,5 +10,5 @@ public interface User {
 
     String getDisplayName();
 
-    int[] getUserRoleIds();
+    List<Role> getUserRoles();
 }

@@ -7,10 +7,10 @@ public class UserAuthPerformer extends AbstractAuthorizationPerformer {
 
     private final User user;
 
-    protected final int[] accessRoles;
-    protected final int[] denyAccessRoles;
+    protected final Role[] accessRoles;
+    protected final Role[] denyAccessRoles;
 
-    public UserAuthPerformer(User user, int[] accessRoles, int[] denyAccessRoles) {
+    public UserAuthPerformer(User user, Role[] accessRoles, Role[] denyAccessRoles) {
 
         this.user = user;
 
@@ -30,9 +30,9 @@ public class UserAuthPerformer extends AbstractAuthorizationPerformer {
 
     private void isUserDeniedAccess(User user, String resource) throws NotAuthorizedException {
 
-        for (int role : denyAccessRoles) {
+        for (Role role : denyAccessRoles) {
 
-            for (int userRole: user.getUserRoleIds()) {
+            for (Role userRole: user.getUserRoles()) {
                 if (role == userRole) {
 
                     Logger.info("User getId: " + user.getId() + " displayName: " + user.getDisplayName() + " denied access on role: " + role + " to: " + resource);
@@ -52,9 +52,9 @@ public class UserAuthPerformer extends AbstractAuthorizationPerformer {
 
         } else {
 
-            for (int role : accessRoles) {
+            for (Role role : accessRoles) {
 
-                for (int userRole: user.getUserRoleIds()) {
+                for (Role userRole: user.getUserRoles()) {
                     if(role == userRole) {
                         accessGranted = true;
                         break;
@@ -65,7 +65,23 @@ public class UserAuthPerformer extends AbstractAuthorizationPerformer {
 
         if (!accessGranted) {
 
-            Logger.info("User getId: " + user.getId() + " displayName: " + user.getDisplayName() + " not granted access to: "+resource+", has not any of roles: " + accessRoles);
+            StringBuilder errorBuilder = new StringBuilder();
+
+            errorBuilder.append("User getId: ");
+            errorBuilder.append(user.getId());
+            errorBuilder.append(" displayName: ");
+            errorBuilder.append(user.getDisplayName());
+            errorBuilder.append(" not granted access to: ");
+            errorBuilder.append(resource);
+            errorBuilder.append(", has not any of roles: [");
+            for(Role role: accessRoles) {
+
+                errorBuilder.append(role.name());
+                errorBuilder.append(",");
+            }
+            errorBuilder.append("]");
+
+            Logger.info(errorBuilder.toString());
             throw new NotAuthorizedException();
         }
 

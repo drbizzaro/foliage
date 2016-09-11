@@ -25,8 +25,8 @@ public class HttpServer {
         logicList.add(new TestLogicWorker());
 
         endPointList.add(new TestEndPoint(Arrays.asList("/"), logicList));
-        endPointList.add(new TestEndPoint(Arrays.asList("/test"), new ArrayList<LogicWorker>()));
-        endPointList.add(new TestEndPoint(Arrays.asList("/all/*"), new ArrayList<LogicWorker>()));
+        endPointList.add(new TestEndPoint(Arrays.asList("/test"), new ArrayList<>()));
+        endPointList.add(new TestEndPoint(Arrays.asList("/all/*"), new ArrayList<>()));
 
         List<ServerEndPoint> errorEndPointList = new ArrayList<>();
 

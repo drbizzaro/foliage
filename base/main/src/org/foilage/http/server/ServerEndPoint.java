@@ -1,5 +1,6 @@
 package org.foilage.http.server;
 
+import org.foilage.authorization.Role;
 import org.foilage.utils.DateUtil;
 import org.pmw.tinylog.Logger;
 
@@ -16,13 +17,13 @@ public abstract class ServerEndPoint <R extends ResponseData> {
 
     private final boolean catchAllBelow;
 
-    private final List<Integer> accessRoles;
+    private final List<Role> accessRoles;
 
-    private final List<Integer> denyRoles;
+    private final List<Role> denyRoles;
 
     protected final List<LogicWorker> preRenderLogicList;
 
-    protected ServerEndPoint(List<String> path, List<Integer> accessRoles, List<Integer> denyRoles) {
+    protected ServerEndPoint(List<String> path, List<Role> accessRoles, List<Role> denyRoles) {
 
         this.path = path;
         this.accessRoles = accessRoles;
@@ -31,7 +32,7 @@ public abstract class ServerEndPoint <R extends ResponseData> {
         this.preRenderLogicList = new ArrayList<>();
     }
 
-    protected ServerEndPoint(List<String> path, List<Integer> accessRoles, List<Integer> denyRoles, List<LogicWorker> preRenderLogicList) {
+    protected ServerEndPoint(List<String> path, List<Role> accessRoles, List<Role> denyRoles, List<LogicWorker> preRenderLogicList) {
 
         this.path = path;
         this.accessRoles = accessRoles;
@@ -40,7 +41,7 @@ public abstract class ServerEndPoint <R extends ResponseData> {
         this.preRenderLogicList = preRenderLogicList;
     }
 
-    protected ServerEndPoint(List<String> path, List<Integer> accessRoles, List<Integer> denyRoles, boolean catchAllBelow, List<LogicWorker> preRenderLogicList) {
+    protected ServerEndPoint(List<String> path, List<Role> accessRoles, List<Role> denyRoles, boolean catchAllBelow, List<LogicWorker> preRenderLogicList) {
 
         this.path = path;
         this.accessRoles = accessRoles;
@@ -106,11 +107,11 @@ public abstract class ServerEndPoint <R extends ResponseData> {
 
     protected abstract R createResponseData();
 
-    public List<Integer> getAccessRoles() {
+    public List<Role> getAccessRoles() {
         return accessRoles;
     }
 
-    public List<Integer> getDenyRoles() {
+    public List<Role> getDenyRoles() {
         return denyRoles;
     }
 }

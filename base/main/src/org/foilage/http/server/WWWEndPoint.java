@@ -1,18 +1,20 @@
 package org.foilage.http.server;
 
+import org.foilage.authorization.Role;
+
 import java.util.List;
 
 public abstract class WWWEndPoint<R extends ResponseData> extends ServerEndPoint<R> {
 
-    protected WWWEndPoint(List<String> path, List<Integer> accessRoles, List<Integer> denyRoles) {
+    protected WWWEndPoint(List<String> path, List<Role> accessRoles, List<Role> denyRoles) {
         super(path, accessRoles, denyRoles);
     }
 
-    protected WWWEndPoint(List<String> path, List<Integer> accessRoles, List<Integer> denyRoles, List<LogicWorker> preRenderLogicList) {
+    protected WWWEndPoint(List<String> path, List<Role> accessRoles, List<Role> denyRoles, List<LogicWorker> preRenderLogicList) {
         super(path, accessRoles, denyRoles, preRenderLogicList);
     }
 
-    protected WWWEndPoint(List<String> path, List<Integer> accessRoles, List<Integer> denyRoles, boolean catchAllBelow, List<LogicWorker> preRenderLogicList) {
+    protected WWWEndPoint(List<String> path, List<Role> accessRoles, List<Role> denyRoles, boolean catchAllBelow, List<LogicWorker> preRenderLogicList) {
         super(path, accessRoles, denyRoles, catchAllBelow, preRenderLogicList);
     }
 

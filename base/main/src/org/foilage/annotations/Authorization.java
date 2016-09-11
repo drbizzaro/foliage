@@ -1,7 +1,7 @@
 package org.foilage.annotations;
 
 import org.foilage.authorization.AuthType;
-import org.foilage.authorization.UserRole;
+import org.foilage.authorization.Role;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -14,12 +14,12 @@ public @interface Authorization {
 
     AuthType authType() default AuthType.USER_AUTH;
 
-    int[] accessRoles() default {UserRole.ADMIN};
-    int[] denyRoles() default {
-            UserRole.DISMISSED,
-            UserRole.LOCKED,
-            UserRole.MUST_CHANGE_PASSWORD,
-            UserRole.NOT_AUTHENTICATED
+    Role[] accessRoles() default {Role.ADMIN};
+    Role[] denyRoles() default {
+            Role.DISMISSED,
+            Role.LOCKED,
+            Role.MUST_CHANGE_PASSWORD,
+            Role.NOT_AUTHENTICATED
     };
 
 }

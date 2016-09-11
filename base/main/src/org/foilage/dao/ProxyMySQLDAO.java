@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.SQLException;
 
-public abstract class ProxyMySQLDAO<T extends ProxyMySQLDAO> {
+public abstract class ProxyMySQLDAO<T> {
 
     protected final MySQLConnectionPool connectionPool;
 
