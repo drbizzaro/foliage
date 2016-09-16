@@ -44,7 +44,7 @@ public class HttpServer {
                         8192,
                         false,
                         new File("/home/fredrik/Downloads/"),
-                        new ArrayList<PreEndPointLogicWorker>(),
+                        new ArrayList<>(),
                         endPointList,
                         errorEndPointList,
                         new DefaultWWWErrorEndPoint(Arrays.asList("/error"), "An error occurred!", "Unfortunately an error has occurred that we couldn't handle."),
