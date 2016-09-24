@@ -11,6 +11,8 @@ public class RequestData {
 
     private final RequestMethod method;
 
+    private final String baseUrl;
+
     private final String url;
 
     private final Map<String,String> headerMap;
@@ -19,9 +21,10 @@ public class RequestData {
 
     private SessionObject session = null;
 
-    public RequestData(RequestMethod method, String url, Map<String, String> headerMap, Map<String,String> parameterMap) {
+    public RequestData(RequestMethod method, String baseUrl, String url, Map<String, String> headerMap, Map<String,String> parameterMap) {
 
         this.method = notNull(method);
+        this.baseUrl = notNull(baseUrl);
         this.url = notNull(url);
         this.headerMap = notNull(headerMap);
         this.parameterMap = notNull(parameterMap);
@@ -31,6 +34,8 @@ public class RequestData {
     public RequestMethod getMethod() {
         return method;
     }
+
+    public String getBaseUrl() { return baseUrl; }
 
     public String getUrl() {
         return url;

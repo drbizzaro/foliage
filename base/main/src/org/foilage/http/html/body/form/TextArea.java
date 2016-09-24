@@ -2,16 +2,15 @@ package org.foilage.http.html.body.form;
 
 import org.foilage.http.html.HtmlComponentImpl;
 
-public class TextInput extends HtmlComponentImpl {
+public class TextArea extends HtmlComponentImpl {
 
     private final Builder builder;
 
-    public TextInput(Builder builder) {
-
+    public TextArea(Builder builder) {
         this.builder = builder;
     }
 
-    public TextInput(String name) {
+    public TextArea(String name) {
 
         Builder b = new Builder();
 
@@ -20,12 +19,12 @@ public class TextInput extends HtmlComponentImpl {
         this.builder = b;
     }
 
-    public TextInput(String name, String value) {
+    public TextArea(String name, String text) {
 
         Builder b = new Builder();
 
         b.name(name);
-        b.value(value);
+        b.text(text);
 
         this.builder = b;
     }
@@ -33,7 +32,7 @@ public class TextInput extends HtmlComponentImpl {
     @Override
     protected void generateHtmlSpecific(HtmlComponentImpl parent, boolean onSameRow) {
 
-        htmlBuilder.append("<input");
+        htmlBuilder.append("<textarea");
 
         htmlBuilder.append(builder.addGeneralComponents());
 
@@ -49,17 +48,26 @@ public class TextInput extends HtmlComponentImpl {
             htmlBuilder.append(" required");
         }
 
-        htmlBuilder.append(" type=\"text\"");
-
         htmlBuilder.append(">\n");
+
+        htmlBuilder.append(builder.text);
+
+        htmlBuilder.append("</textarea>\n");
 
     }
 
-    public static class Builder extends InputBuilder<TextInput,Builder> {
+    public static class Builder extends InputBuilder<TextArea,Builder> {
+
+        private String text = "";
 
         private String placeholder = null;
 
         private boolean required = false;
+
+        public Builder text(String text) {
+
+            this.text = text; return this;
+        }
 
         public Builder placeholder(String placeholder) {
 
@@ -73,8 +81,8 @@ public class TextInput extends HtmlComponentImpl {
 
 
         @Override
-        public TextInput build() {
-            return new TextInput(this);
+        public TextArea build() {
+            return new TextArea(this);
         }
     }
 

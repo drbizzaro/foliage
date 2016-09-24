@@ -4,7 +4,7 @@ import org.foilage.http.StatusCode;
 
 public interface ResponseData {
 
-    public StatusCode getResponseCode();
+    StatusCode getResponseCode();
 
-    public void setResponseCode(StatusCode responseCode);
+    void setResponseCode(StatusCode responseCode);
 }

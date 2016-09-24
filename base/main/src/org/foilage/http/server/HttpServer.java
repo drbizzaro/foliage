@@ -40,6 +40,7 @@ public class HttpServer {
         new HttpServer(
                 new HttpServerEnvironment(
                         "#42",
+                        "http://localhost:8000",
                         8000,
                         8192,
                         false,

@@ -21,7 +21,7 @@ public class ClientSocketThread implements Runnable {
 
     private final HttpServerEnvironment serverEnv;
 
-    private final static RequestData errorRequest = new RequestData(RequestMethod.GET, "", new HashMap<String,String>(), new HashMap<String,String>());
+    private final static RequestData errorRequest = new RequestData(RequestMethod.GET, "", "", new HashMap<String,String>(), new HashMap<String,String>());
 
     public ClientSocketThread(Socket socket, HttpServerEnvironment serverEnv) {
 
@@ -41,7 +41,7 @@ public class ClientSocketThread implements Runnable {
 
             try {
 
-                RequestData req = RequestReader.INSTANCE.readInData(socket.getInputStream(), serverEnv.getBufferSize());
+                RequestData req = RequestReader.INSTANCE.readInData(serverEnv.getBaseUrl(), socket.getInputStream(), serverEnv.getBufferSize());
 
                 req.setSession(SessionStore.I.getSession(req.getHeader("cookie"), socket.getRemoteSocketAddress().toString().split(":")[0].replaceAll("/","")));
                 errorRequest.setSession(req.getSession());
