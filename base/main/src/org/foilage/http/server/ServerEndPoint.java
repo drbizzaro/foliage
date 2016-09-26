@@ -87,7 +87,9 @@ public abstract class ServerEndPoint <R extends ResponseData> {
             sb.append("Set-Cookie:");
             sb.append("X-FOILAGE-SESSION-ID=");
             sb.append(req.getSession().getSessionId());
-            sb.append("\r\n");
+            sb.append("; domain=");
+            sb.append(serverEnv.getDomain());
+            sb.append(";path=/;\r\n");
 
             req.getSession().setCreateClientCookie(false);
         }

@@ -11,6 +11,8 @@ public class HttpServerEnvironment {
 
     private final String serverName;
 
+    private final String domain;
+
     private final String baseUrl;
 
     private final int port;
@@ -31,9 +33,10 @@ public class HttpServerEnvironment {
 
     private final List<Locale> availableLanguages;
 
-    public HttpServerEnvironment(String serverName, String baseUrl, int port, int bufferSize, boolean sessionsActive, File dataFilesRoot, List<PreEndPointLogicWorker> preEndPointWorkers, List<ServerEndPoint> endPointList, List<ServerEndPoint> errorEndPointList, ServerEndPoint defaultErrorEndPoint, List<Locale> availableLanguages) {
+    public HttpServerEnvironment(String serverName, String domain, String baseUrl, int port, int bufferSize, boolean sessionsActive, File dataFilesRoot, List<PreEndPointLogicWorker> preEndPointWorkers, List<ServerEndPoint> endPointList, List<ServerEndPoint> errorEndPointList, ServerEndPoint defaultErrorEndPoint, List<Locale> availableLanguages) {
 
         this.serverName = serverName;
+        this.domain = domain;
         this.baseUrl = baseUrl;
         this.port = port;
         this.bufferSize = bufferSize;
@@ -48,6 +51,10 @@ public class HttpServerEnvironment {
 
     public String getServerName() {
         return serverName;
+    }
+
+    public String getDomain() {
+        return domain;
     }
 
     public String getBaseUrl() {return baseUrl;}
