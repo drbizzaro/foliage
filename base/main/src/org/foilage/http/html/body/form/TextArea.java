@@ -48,7 +48,7 @@ public class TextArea extends HtmlComponentImpl {
             htmlBuilder.append(" required");
         }
 
-        htmlBuilder.append(">\n");
+        htmlBuilder.append(">");
 
         htmlBuilder.append(builder.text);
 
