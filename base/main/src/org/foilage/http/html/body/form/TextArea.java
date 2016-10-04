@@ -21,10 +21,7 @@ public class TextArea extends HtmlComponentImpl {
 
     public TextArea(String name, String text) {
 
-        Builder b = new Builder();
-
-        b.name(name);
-        b.text(text);
+        Builder b = new Builder(name, text);
 
         this.builder = b;
     }
@@ -63,6 +60,16 @@ public class TextArea extends HtmlComponentImpl {
         private String placeholder = null;
 
         private boolean required = false;
+
+        public Builder() {
+
+        }
+
+        public Builder(String name, String text) {
+
+            this.text = text;
+            this.name(name);
+        }
 
         public Builder text(String text) {
 
