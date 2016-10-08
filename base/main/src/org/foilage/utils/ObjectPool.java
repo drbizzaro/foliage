@@ -41,7 +41,7 @@ public abstract class ObjectPool<T> {
         {
             @Override
             public void run() {
-                System.out.println("Check "+pool.size());
+
                 int size = pool.size();
                 if (size < minIdle) {
                     int sizeToBeAdded = minIdle - size;

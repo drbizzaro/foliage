@@ -27,13 +27,6 @@ public class AddressImpl implements Address {
 
     private final long validTo;
 
-    public static void main(String[] args) {
-
-        Address address = new AddressImpl("Fredrik Gustavsson", "Manuela", "Tyringegatan 348", "25276", "Helingborg", Country.SWEDEN, AddressType.PERMANENT, new Date(), new Date());
-
-        System.out.println(address.getCountry().getAddressFormat().formatAddress(address));
-    }
-
     public AddressImpl(String addressee, String careOf, String streetAddress, String postalCode, String city, Country country, AddressType type, Date validFrom, Date validTo) {
 
         this(0, addressee, careOf, streetAddress, postalCode, city, country, type, validFrom, validTo);

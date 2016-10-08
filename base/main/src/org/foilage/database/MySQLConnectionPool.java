@@ -21,12 +21,11 @@ public class MySQLConnectionPool {
             protected Connection createObject() {
 
                 try {
-                    System.out.println(System.currentTimeMillis());
                     return DriverManager.getConnection("jdbc:mysql://localhost/"+credentials.getDatabase()+"?" +
                             "user="+credentials.getUser()+"&password="+credentials.getPassword()+"&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone="+credentials.getServerTimeZone());
                 } catch(SQLException e) {
 
-                    Logger.error("Problem creating connection for database pool - "+e.getMessage());
+                    Logger.error("Problem creating connection for database pool - "+e.getClass().toString()+" - "+e.getMessage());
                     return null;
                 }
             }
