@@ -22,7 +22,7 @@ public class MySQLConnectionPool {
 
                 try {
                     return DriverManager.getConnection("jdbc:mysql://localhost/"+credentials.getDatabase()+"?" +
-                            "user="+credentials.getUser()+"&password="+credentials.getPassword()+"&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone="+credentials.getServerTimeZone());
+                            "user="+credentials.getUser()+"&password="+credentials.getPassword()+"&useSSL=false&useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone="+credentials.getServerTimeZone());
                 } catch(SQLException e) {
 
                     Logger.error("Problem creating connection for database pool - "+e.getClass().toString()+" - "+e.getMessage());
@@ -39,6 +39,11 @@ public class MySQLConnectionPool {
         try {
 
             Connection con = pool.borrowObject();
+
+            while(!con.isValid(1)) {
+
+                con = pool.borrowObject();
+            }
 
             if (commitType == CommitType.CONTROL) {
 

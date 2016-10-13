@@ -4,6 +4,7 @@ import org.foilage.authorization.Role;
 import org.foilage.utils.DateUtil;
 import org.pmw.tinylog.Logger;
 
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -102,7 +103,14 @@ public abstract class ServerEndPoint <R extends ResponseData> {
         Logger.debug("-------------RESPONSE-------------");
         Logger.debug(sb.toString());
 
-        return sb.toString().getBytes();
+        try {
+
+            return sb.toString().getBytes("utf-8");
+
+        } catch (UnsupportedEncodingException e) {
+
+            return sb.toString().getBytes();
+        }
     }
 
     protected abstract String renderSpecificEndPointResponse(HttpServerEnvironment serverEnv, RequestData req, R resp);
