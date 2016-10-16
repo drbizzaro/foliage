@@ -76,4 +76,17 @@ public enum Country {
     public PostalCodeValidator getPostalCodeValidator() {
         return postalCodeValidator;
     }
+
+    public static Country getByAlpha3Code(String alpha3Code) {
+
+        for(Country country: Country.values()) {
+
+            if(country.alpha3Code.equalsIgnoreCase(alpha3Code)) {
+
+                return country;
+            }
+        }
+
+        throw new IllegalArgumentException("No country exists with alpha 3 code "+alpha3Code);
+    }
 }

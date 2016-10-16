@@ -1,6 +1,6 @@
 package org.foilage.address;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import static org.foilage.utils.checkers.NotNegativeChecker.notNegative;
 import static org.foilage.utils.checkers.NullChecker.notNull;
@@ -23,16 +23,16 @@ public class AddressImpl implements Address {
 
     private final AddressType type;
 
-    private final long validFrom;
+    private final LocalDateTime validFrom;
 
-    private final long validTo;
+    private final LocalDateTime validTo;
 
-    public AddressImpl(String addressee, String careOf, String streetAddress, String postalCode, String city, Country country, AddressType type, Date validFrom, Date validTo) {
+    public AddressImpl(String addressee, String careOf, String streetAddress, String postalCode, String city, Country country, AddressType type, LocalDateTime validFrom, LocalDateTime validTo) {
 
         this(0, addressee, careOf, streetAddress, postalCode, city, country, type, validFrom, validTo);
     }
 
-    public AddressImpl(int id, String addressee, String careOf, String streetAddress, String postalCode, String city, Country country, AddressType type, Date validFrom, Date validTo) {
+    public AddressImpl(int id, String addressee, String careOf, String streetAddress, String postalCode, String city, Country country, AddressType type, LocalDateTime validFrom, LocalDateTime validTo) {
         this.id = notNegative(id, "AddressImpl.id can't be negative!");
         this.addressee = notNull(addressee, "AddressImpl.addressee can't be null!");
         this.careOf = notNull(careOf, "AddressImpl.careOf can't be null!");
@@ -41,8 +41,8 @@ public class AddressImpl implements Address {
         this.city = notNull(city, "AddressImpl.city can't be null!");
         this.country = notNull(country, "AddressImpl.country can't be null!");
         this.type = notNull(type, "AddressImpl.type can't be null!");
-        this.validFrom = notNull(validFrom.getTime(), "AddressImpl.validFrom can't be null!");
-        this.validTo = notNull(validTo.getTime(), "AddressImpl.validTo can't be null!");
+        this.validFrom = notNull(validFrom, "AddressImpl.validFrom can't be null!");
+        this.validTo = notNull(validTo, "AddressImpl.validTo can't be null!");
 
         if(!country.getPostalCodeValidator().isValid(postalCode)) {
 
@@ -91,12 +91,12 @@ public class AddressImpl implements Address {
     }
 
     @Override
-    public Date getValidFrom() {
-        return new Date(validFrom);
+    public LocalDateTime getValidFrom() {
+        return validFrom;
     }
 
     @Override
-    public Date getValidTo() {
-        return new Date(validTo);
+    public LocalDateTime getValidTo() {
+        return validTo;
     }
 }

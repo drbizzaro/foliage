@@ -1,6 +1,6 @@
 package org.foilage.address;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public interface Address {
 
@@ -20,7 +20,7 @@ public interface Address {
 
     public AddressType getType();
 
-    public Date getValidFrom();
+    public LocalDateTime getValidFrom();
 
-    public Date getValidTo();
+    public LocalDateTime getValidTo();
 }
