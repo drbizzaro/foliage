@@ -2,6 +2,8 @@ package org.foilage.http.server;
 
 import org.foilage.http.StatusCode;
 
+import static org.foilage.utils.checkers.NullChecker.notNull;
+
 public class ResponseDataImpl implements ResponseData {
 
     private StatusCode responseCode;
@@ -13,7 +15,7 @@ public class ResponseDataImpl implements ResponseData {
 
     public ResponseDataImpl(StatusCode responseCode) {
 
-        this.responseCode = responseCode;
+        this.responseCode = notNull(responseCode);
     }
 
     public StatusCode getResponseCode() {
@@ -21,6 +23,6 @@ public class ResponseDataImpl implements ResponseData {
     }
 
     public void setResponseCode(StatusCode responseCode) {
-        this.responseCode = responseCode;
+        this.responseCode = notNull(responseCode);
     }
 }

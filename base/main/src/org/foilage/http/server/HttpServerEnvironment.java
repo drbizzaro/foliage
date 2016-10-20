@@ -90,7 +90,7 @@ public class HttpServerEnvironment {
 
                     return endPoint;
 
-                } else if (endPoint.getPath().get(i).toString().equalsIgnoreCase(url)) {
+                } else if (endPoint.getPath().get(i).toString().equalsIgnoreCase(url) || (endPoint.getPath().get(i).toString()+"/").equalsIgnoreCase(url)) {
 
                     return endPoint;
                 }
