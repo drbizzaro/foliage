@@ -12,6 +12,11 @@ public class A extends HtmlComponentImpl {
 
     private final Builder builder;
 
+    public A(String href, String linkText) {
+
+        this.builder = new A.Builder(href, linkText);
+    }
+
     public A(Builder builder) {
         this.builder = builder;
     }
