@@ -1,5 +1,6 @@
 package org.foilage.http.server;
 
+import org.foilage.authorization.Role;
 import org.foilage.utils.DateUtil;
 
 import java.util.Date;
@@ -9,11 +10,11 @@ import static org.foilage.http.StatusCode.NOT_IMPLEMENTED_501;
 
 public abstract class RestEndPoint extends ServerEndPoint {
 
-    protected RestEndPoint(List<String> path, List<Integer> accessRoles, List<Integer> denyRoles, List<LogicWorker> preRenderLogicList) {
+    protected RestEndPoint(List<String> path, List<Role> accessRoles, List<Role> denyRoles, List<LogicWorker> preRenderLogicList) {
         super(path, accessRoles, denyRoles, preRenderLogicList);
     }
 
-    protected RestEndPoint(List<String> path, List<Integer> accessRoles, List<Integer> denyRoles, boolean catchAllBelow, List<LogicWorker> preRenderLogicList) {
+    protected RestEndPoint(List<String> path, List<Role> accessRoles, List<Role> denyRoles, boolean catchAllBelow, List<LogicWorker> preRenderLogicList) {
         super(path, accessRoles, denyRoles, catchAllBelow, preRenderLogicList);
     }
 

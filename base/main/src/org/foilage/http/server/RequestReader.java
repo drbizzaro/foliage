@@ -41,6 +41,15 @@ public enum RequestReader {
             splitByte = findHeaderEnd(buffer, bufferLength);
         }
 
+        byte[] dataBuffer = new byte[bufferSize];
+
+        while(read > -1) {
+
+            bufferLength += read;
+
+            read = inputStream.read(dataBuffer, bufferLength, bufferSize - bufferLength);
+        }
+
         if(bufferLength>0) {
 
             Logger.debug(new String(Arrays.copyOf(buffer, bufferLength)));
