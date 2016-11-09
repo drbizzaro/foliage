@@ -19,16 +19,18 @@ public class RequestData {
 
     private final Map<String,String> parameterMap;
 
+    private final String messageBody;
+
     private SessionObject session = null;
 
-    public RequestData(RequestMethod method, String baseUrl, String url, Map<String, String> headerMap, Map<String,String> parameterMap) {
+    public RequestData(RequestMethod method, String baseUrl, String url, Map<String, String> headerMap, Map<String,String> parameterMap, String messageBody) {
 
         this.method = notNull(method);
         this.baseUrl = notNull(baseUrl);
         this.url = notNull(url);
         this.headerMap = notNull(headerMap);
         this.parameterMap = notNull(parameterMap);
-
+        this.messageBody = notNull(messageBody);
     }
 
     public RequestMethod getMethod() {
@@ -76,6 +78,10 @@ public class RequestData {
 
             return Integer.MIN_VALUE;
         }
+    }
+
+    public String getMessageBody() {
+        return messageBody;
     }
 
     public SessionObject getSession() {

@@ -21,7 +21,7 @@ public class ClientSocketThread implements Runnable {
 
     private final HttpServerEnvironment serverEnv;
 
-    private final static RequestData errorRequest = new RequestData(RequestMethod.GET, "", "", new HashMap<String,String>(), new HashMap<String,String>());
+    private final static RequestData errorRequest = new RequestData(RequestMethod.GET, "", "", new HashMap<String,String>(), new HashMap<String,String>(), "");
 
     public ClientSocketThread(Socket socket, HttpServerEnvironment serverEnv) {
 

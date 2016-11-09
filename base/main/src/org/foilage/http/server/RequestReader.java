@@ -20,9 +20,11 @@ public enum RequestReader {
     public RequestData readInData(String baseUrl, InputStream inputStream, int bufferSize) throws HttpRequestLineException, IOException {
 
         byte[] buffer = new byte[bufferSize];
+        byte[] dataBuffer = new byte[bufferSize];
 
         int read = 0;
         int bufferLength = 0;
+        int dataBufferLength = 0;
         int splitByte = 0;
 
         while (read > -1 && splitByte <= 0) {
@@ -41,13 +43,15 @@ public enum RequestReader {
             splitByte = findHeaderEnd(buffer, bufferLength);
         }
 
-        byte[] dataBuffer = new byte[bufferSize];
+        splitByte = 0;
 
-        while(read > -1) {
+        while(read > -1 && splitByte <= 0) {
 
-            bufferLength += read;
+            dataBufferLength += read;
 
-            read = inputStream.read(dataBuffer, bufferLength, bufferSize - bufferLength);
+            read = inputStream.read(dataBuffer, dataBufferLength, bufferSize - (bufferLength+dataBufferLength));
+
+            splitByte = findHeaderEnd(buffer, bufferLength)+dataBufferLength;
         }
 
         if(bufferLength>0) {
@@ -74,7 +78,7 @@ public enum RequestReader {
                 parsePostParameters(parameterMap, requestDataLines.get(requestDataLines.size()-1));
             }
 
-            return new RequestData(requestMethod, baseUrl, parseRequestURL(requestLine), parseHeaderMap(requestDataLines), parameterMap);
+            return new RequestData(requestMethod, baseUrl, parseRequestURL(requestLine), parseHeaderMap(requestDataLines), parameterMap, new String(dataBuffer));
 
         } else{
 
