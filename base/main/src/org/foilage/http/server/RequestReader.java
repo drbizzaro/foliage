@@ -24,10 +24,11 @@ public enum RequestReader {
 
         int read = 0;
         int bufferLength = 0;
-        int dataBufferLength = 0;
         int splitByte = 0;
 
-        while (read > -1 && splitByte <= 0) {
+        boolean stopRead = false;
+
+        while (read > -1 && !stopRead) {
 
             try {
 
@@ -40,18 +41,19 @@ public enum RequestReader {
 
             bufferLength += read;
 
-            splitByte = findHeaderEnd(buffer, bufferLength);
-        }
+            if(splitByte==0) {
+                splitByte = findHeaderEnd(buffer, bufferLength);
+            }
 
-        splitByte = 0;
+            if(buffer[bufferLength]==0) {
 
-        while(read > -1 && splitByte <= 0) {
+                stopRead = true;
+            }
 
-            dataBufferLength += read;
+            if(splitByte <= 0) {
 
-            read = inputStream.read(dataBuffer, dataBufferLength, bufferSize - (bufferLength+dataBufferLength));
 
-            splitByte = findHeaderEnd(buffer, bufferLength)+dataBufferLength;
+            }
         }
 
         if(bufferLength>0) {
@@ -61,6 +63,9 @@ public enum RequestReader {
             String headerString = new String(Arrays.copyOf(buffer, bufferLength));
 
             List<String> requestDataLines = new ArrayList<>();
+
+            dataBuffer = new byte[bufferLength-splitByte];
+            System.arraycopy(buffer, splitByte, dataBuffer, 0, bufferLength-splitByte);
 
             for (String s : headerString.split("\r\n")) {
 
