@@ -2,6 +2,7 @@ package org.foilage.http.server;
 
 import org.foilage.authorization.Role;
 import org.foilage.utils.DateUtil;
+import org.json.JSONObject;
 
 import java.util.Date;
 import java.util.List;
@@ -18,53 +19,65 @@ public abstract class RestEndPoint extends ServerEndPoint {
         super(path, accessRoles, denyRoles, catchAllBelow, preRenderLogicList);
     }
 
-    public byte[] renderEndPointResponse(HttpServerEnvironment serverEnv, RequestData req, ResponseDataImpl resp) {
+    public byte[] renderEndPointResponse(HttpServerEnvironment serverEnv, RequestData req, ResponseData resp) {
 
         StringBuilder sb = new StringBuilder();
 
         String responseData = renderSpecificEndPointResponse(serverEnv, req, resp);
 
+        if(responseData.startsWith("HTTP/1.1")) {
+
+            sb.append(responseData);
+
+        } else {
+
+            sb.append("HTTP/1.1 ");
+            sb.append(resp.getResponseCode().getId());
+            sb.append(" ");
+            sb.append(resp.getResponseCode().getName());
+            sb.append("\r\n");
+
+            sb.append("Date: ");
+            sb.append(dateFormat.format(DateUtil.stepBack(new Date(), 3600000)));
+            sb.append(" GMT\r\n");
+
+            sb.append("Server: ");
+            sb.append(serverEnv.getServerName());
+            sb.append("\r\n");
+
+            sb.append("Connection: close\r\n");
+            sb.append("\r\n");
+            sb.append(responseData);
+            sb.append("\r\n");
+        }
+
+        return sb.toString().getBytes();
+    }
+
+    @Override
+    protected String renderSpecificEndPointResponse(HttpServerEnvironment serverEnv, RequestData req, ResponseData resp) {
+
         switch (req.getMethod()) {
 
             case GET:
-                renderEndPointGetResponse(serverEnv, req, resp);
+                return renderEndPointGetResponse(serverEnv, req, resp);
             case POST:
-                renderEndPointPostResponse(serverEnv, req, resp);
+                return renderEndPointPostResponse(serverEnv, req, resp);
             case HEAD:
-                renderEndPointHeadResponse(serverEnv, req, resp);
+                 return renderEndPointHeadResponse(serverEnv, req, resp);
             case PUT:
-                renderEndPointPutResponse(serverEnv, req, resp);
+                return renderEndPointPutResponse(serverEnv, req, resp);
             case DELETE:
-                renderEndPointDeleteResponse(serverEnv, req, resp);
+                return renderEndPointDeleteResponse(serverEnv, req, resp);
             case CONNECT:
-                renderEndPointConnectResponse(serverEnv, req, resp);
+                return renderEndPointConnectResponse(serverEnv, req, resp);
             case OPTIONS:
-                renderEndPointOptionsResponse(serverEnv, req, resp);
+                return renderEndPointOptionsResponse(serverEnv, req, resp);
             case TRACE:
-                renderEndPointTraceResponse(serverEnv, req, resp);
-                break;
+                return renderEndPointTraceResponse(serverEnv, req, resp);
         }
 
-        sb.append("HTTP/1.1 ");
-        sb.append(resp.getResponseCode().getId());
-        sb.append(" ");
-        sb.append(resp.getResponseCode().getName());
-        sb.append("\r\n");
-
-        sb.append("Date: ");
-        sb.append(dateFormat.format(DateUtil.stepBack(new Date(), 3600000)));
-        sb.append(" GMT\r\n");
-
-        sb.append("Server: ");
-        sb.append(serverEnv.getServerName());
-        sb.append("\r\n");
-
-        sb.append("Connection: close\r\n");
-        sb.append("\r\n");
-        sb.append(responseData);
-        sb.append("\r\n");
-
-        return sb.toString().getBytes();
+        return renderGeneralNotImplementedResponse(serverEnv);
     }
 
     protected String renderGeneralNotImplementedResponse(HttpServerEnvironment serverEnvironment) {
@@ -79,42 +92,42 @@ public abstract class RestEndPoint extends ServerEndPoint {
         return sb.toString();
     }
 
-    protected String renderEndPointGetResponse(HttpServerEnvironment serverEnvironment, RequestData req, ResponseDataImpl resp) {
+    protected String renderEndPointGetResponse(HttpServerEnvironment serverEnvironment, RequestData req, ResponseData resp) {
 
         return renderGeneralNotImplementedResponse(serverEnvironment);
     }
 
-    protected String renderEndPointHeadResponse(HttpServerEnvironment serverEnvironment, RequestData req, ResponseDataImpl resp) {
+    protected String renderEndPointHeadResponse(HttpServerEnvironment serverEnvironment, RequestData req, ResponseData resp) {
 
         return renderGeneralNotImplementedResponse(serverEnvironment);
     }
 
-    protected String renderEndPointPostResponse(HttpServerEnvironment serverEnvironment, RequestData req, ResponseDataImpl resp) {
+    protected String renderEndPointPostResponse(HttpServerEnvironment serverEnvironment, RequestData req, ResponseData resp) {
 
         return renderGeneralNotImplementedResponse(serverEnvironment);
     }
 
-    protected String renderEndPointPutResponse(HttpServerEnvironment serverEnvironment, RequestData req, ResponseDataImpl resp) {
+    protected String renderEndPointPutResponse(HttpServerEnvironment serverEnvironment, RequestData req, ResponseData resp) {
 
         return renderGeneralNotImplementedResponse(serverEnvironment);
     }
 
-    protected String renderEndPointDeleteResponse(HttpServerEnvironment serverEnvironment, RequestData req, ResponseDataImpl resp) {
+    protected String renderEndPointDeleteResponse(HttpServerEnvironment serverEnvironment, RequestData req, ResponseData resp) {
 
         return renderGeneralNotImplementedResponse(serverEnvironment);
     }
 
-    protected String renderEndPointConnectResponse(HttpServerEnvironment serverEnvironment, RequestData req, ResponseDataImpl resp) {
+    protected String renderEndPointConnectResponse(HttpServerEnvironment serverEnvironment, RequestData req, ResponseData resp) {
 
         return renderGeneralNotImplementedResponse(serverEnvironment);
     }
 
-    protected String renderEndPointOptionsResponse(HttpServerEnvironment serverEnvironment, RequestData req, ResponseDataImpl resp) {
+    protected String renderEndPointOptionsResponse(HttpServerEnvironment serverEnvironment, RequestData req, ResponseData resp) {
 
         return renderGeneralNotImplementedResponse(serverEnvironment);
     }
 
-    protected String renderEndPointTraceResponse(HttpServerEnvironment serverEnvironment, RequestData req, ResponseDataImpl resp) {
+    protected String renderEndPointTraceResponse(HttpServerEnvironment serverEnvironment, RequestData req, ResponseData resp) {
 
         return renderGeneralNotImplementedResponse(serverEnvironment);
     }
