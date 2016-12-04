@@ -25,15 +25,19 @@ public enum RequestReader {
         int read = 0;
         int bufferLength = 0;
         int splitByte = 0;
+        int contentLength = -1;
 
         boolean stopRead = false;
 
-        while (read > -1 && !stopRead) {
+        Map<String,String> headerMap = new HashMap<>();
+
+        while (read > -1 && contentLength!=bufferLength) {
 
             try {
 
                 read = inputStream.read(buffer, bufferLength, bufferSize - bufferLength);
 
+                System.out.println(read);
             } catch (Exception e) {
 
                 Logger.error(e.getMessage());
@@ -42,10 +46,26 @@ public enum RequestReader {
             bufferLength += read;
 
             if(splitByte==0) {
+
                 splitByte = findHeaderEnd(buffer, bufferLength);
+
+                if(splitByte!=0) {
+
+                    String headerString = new String(Arrays.copyOf(buffer, splitByte));
+
+                    headerMap = parseHeaderMap(Arrays.asList(headerString.split("\r\n")));
+                    Logger.debug(headerString);
+                    if(headerMap.containsKey("content-length")) {
+
+                        contentLength = splitByte+Integer.parseInt(headerMap.get("content-length"));
+                    }
+
+                }
             }
 
-            if(buffer[bufferLength]==0) {
+            System.out.println(contentLength+":"+bufferLength);
+
+            /*if(buffer[bufferLength]==0) {
 
                 stopRead = true;
             }
@@ -53,7 +73,7 @@ public enum RequestReader {
             if(splitByte <= 0) {
 
 
-            }
+            }*/
         }
 
         if(bufferLength>0) {
