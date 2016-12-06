@@ -20,14 +20,12 @@ public enum RequestReader {
     public RequestData readInData(String baseUrl, InputStream inputStream, int bufferSize) throws HttpRequestLineException, IOException {
 
         byte[] buffer = new byte[bufferSize];
-        byte[] dataBuffer = new byte[bufferSize];
+        byte[] dataBuffer;
 
         int read = 0;
         int bufferLength = 0;
         int splitByte = 0;
         int contentLength = -1;
-
-        boolean stopRead = false;
 
         Map<String,String> headerMap = new HashMap<>();
 
@@ -37,7 +35,6 @@ public enum RequestReader {
 
                 read = inputStream.read(buffer, bufferLength, bufferSize - bufferLength);
 
-                System.out.println(read);
             } catch (Exception e) {
 
                 Logger.error(e.getMessage());
@@ -58,22 +55,14 @@ public enum RequestReader {
                     if(headerMap.containsKey("content-length")) {
 
                         contentLength = splitByte+Integer.parseInt(headerMap.get("content-length"));
+
+                    } else {
+
+                         contentLength = bufferLength;
                     }
 
                 }
             }
-
-            System.out.println(contentLength+":"+bufferLength);
-
-            /*if(buffer[bufferLength]==0) {
-
-                stopRead = true;
-            }
-
-            if(splitByte <= 0) {
-
-
-            }*/
         }
 
         if(bufferLength>0) {
@@ -103,7 +92,7 @@ public enum RequestReader {
                 parsePostParameters(parameterMap, requestDataLines.get(requestDataLines.size()-1));
             }
 
-            return new RequestData(requestMethod, baseUrl, parseRequestURL(requestLine), parseHeaderMap(requestDataLines), parameterMap, new String(dataBuffer));
+            return new RequestData(requestMethod, baseUrl, parseRequestURL(requestLine), headerMap, parameterMap, new String(dataBuffer));
 
         } else{
 
