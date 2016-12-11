@@ -61,6 +61,15 @@ public class TextInput extends HtmlComponentImpl {
 
         private boolean required = false;
 
+        public Builder() {
+        }
+
+        public Builder(String name, String value) {
+
+            this.name(name);
+            this.value(value);;
+        }
+
         public Builder placeholder(String placeholder) {
 
             this.placeholder = placeholder; return this;

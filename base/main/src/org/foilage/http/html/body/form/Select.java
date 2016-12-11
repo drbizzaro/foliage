@@ -13,15 +13,19 @@ public class Select extends HtmlComponentImpl {
         this.builder = builder;
     }
 
-    public Select(List<Option> option) {
+    public Select(String name, List<Option> option) {
 
-        this.builder = new Builder(option);
+        this.builder = new Builder(name, option);
     }
 
     @Override
     protected void generateHtmlSpecific(HtmlComponentImpl parent, boolean onSameRow) {
 
-        htmlBuilder.append("<select>\n");
+        htmlBuilder.append("<select ");
+
+        htmlBuilder.append(builder.addGeneralComponents());
+
+        htmlBuilder.append(">\n");
 
         for(Option option: builder.option) {
 
@@ -35,7 +39,8 @@ public class Select extends HtmlComponentImpl {
 
         private List<Option> option = new ArrayList<>();
 
-        public Builder(List<Option> option) {
+        public Builder(String name, List<Option> option) {
+            this.name(name);
             this.option = option;
         }
 

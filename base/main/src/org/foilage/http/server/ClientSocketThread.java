@@ -96,7 +96,7 @@ public class ClientSocketThread implements Runnable {
 
                         out.write(serverEnv.findErrorEndPointByStatusCode(StatusCode.NOT_FOUND_404).renderEndPointResponse(serverEnv, errorRequest, new ResponseDataImpl(StatusCode.NOT_FOUND_404)));
 
-                        Logger.info(e.getMessage());
+                        Logger.info(ex.getMessage());
                     }
 
                 } catch(NotAuthenticatedException e) {
