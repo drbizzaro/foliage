@@ -8,6 +8,8 @@ public class ResponseDataImpl implements ResponseData {
 
     private StatusCode responseCode;
 
+    private String title;
+
     public ResponseDataImpl() {
 
         this.responseCode = StatusCode.OK_200;
@@ -24,5 +26,13 @@ public class ResponseDataImpl implements ResponseData {
 
     public void setResponseCode(StatusCode responseCode) {
         this.responseCode = notNull(responseCode);
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
