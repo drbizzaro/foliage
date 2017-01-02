@@ -30,16 +30,28 @@ public class Div extends HtmlComponentImpl {
         }
 
         htmlBuilder.append(Util.tab(tabs));
-        htmlBuilder.append("</div>\n");
+        htmlBuilder.append("</div>");
+
+        if(builder.rowBreak) {
+
+            htmlBuilder.append("\n");
+        }
     }
 
     public static class Builder extends BaseEventComponentBuilder<Div,Builder> implements HtmlComponentStorage<HtmlComponent> {
 
         private List<HtmlComponent> components;
 
+        private boolean rowBreak = true;
+
         public Builder() {
 
             components = new ArrayList<>();
+        }
+
+        public Builder rowBreak(boolean rowBreak) {
+
+            this.rowBreak = rowBreak; return this;
         }
 
         @Override
