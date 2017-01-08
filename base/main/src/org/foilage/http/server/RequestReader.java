@@ -67,7 +67,7 @@ public enum RequestReader {
 
         if(bufferLength>0) {
 
-            Logger.debug(new String(Arrays.copyOf(buffer, bufferLength)));
+            Logger.trace(new String(Arrays.copyOf(buffer, bufferLength)));
 
             String headerString = new String(Arrays.copyOf(buffer, bufferLength));
 
