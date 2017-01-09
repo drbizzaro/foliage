@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Class-Path: tinylog-1.1-rc-2.jar json-20160212.jar
+Main-Class: com.diggime.Diggime
+
