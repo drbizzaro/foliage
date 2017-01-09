@@ -100,8 +100,8 @@ public abstract class ServerEndPoint <R extends ResponseData> {
         sb.append(responseData);
         sb.append("\r\n");
 
-        Logger.debug("-------------RESPONSE-------------");
-        Logger.debug(sb.toString());
+        Logger.trace("-------------RESPONSE-------------");
+        Logger.trace(sb.toString());
 
         try {
 

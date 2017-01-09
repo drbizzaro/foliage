@@ -31,6 +31,7 @@ public class Div extends HtmlComponentImpl {
 
         htmlBuilder.append(Util.tab(tabs));
         htmlBuilder.append("</div>");
+
         if(builder.rowBreak) {
 
             htmlBuilder.append("\n");
@@ -48,14 +49,14 @@ public class Div extends HtmlComponentImpl {
             components = new ArrayList<>();
         }
 
-        @Override
-        public Div build() {
-            return new Div(components, this);
-        }
-
         public Builder rowBreak(boolean rowBreak) {
 
             this.rowBreak = rowBreak; return this;
+        }
+
+        @Override
+        public Div build() {
+            return new Div(components, this);
         }
 
         @Override
