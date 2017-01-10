@@ -1,8 +1,10 @@
 package org.foilage.http.server;
 
 import org.foilage.authorization.exceptions.NotAuthorizedException;
+import org.pmw.tinylog.Logger;
 
 import java.io.*;
+import java.nio.file.Files;
 
 public enum FileRenderer {
 
@@ -12,15 +14,7 @@ public enum FileRenderer {
 
         if(verifyFile(url, dataFilesRoot)) {
 
-            byte[] imgbuf = new byte[10240];
-            int len;
-            InputStream imageStream = new FileInputStream(dataFilesRoot.toString() + url);
-            while ((len = imageStream.read(imgbuf)) != -1) {
-                outImg.write(imgbuf, 0, len);
-            }
-
-            outImg.flush();
-            outImg.close();
+            outImg.write(Files.readAllBytes(new File(dataFilesRoot.toString() + url).toPath()));
 
         } else {
 
@@ -49,6 +43,8 @@ public enum FileRenderer {
             return false;
 
         } catch (IOException e) {
+
+            Logger.error(e.getMessage());
 
             return false;
         }

@@ -4,6 +4,7 @@ import org.foilage.authorization.Role;
 import org.foilage.utils.DateUtil;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
@@ -51,7 +52,15 @@ public abstract class RestEndPoint extends ServerEndPoint {
             sb.append("\r\n");
         }
 
-        return sb.toString().getBytes();
+        try {
+
+            return sb.toString().getBytes("utf-8");
+
+        } catch (UnsupportedEncodingException e) {
+
+            return sb.toString().getBytes();
+        }
+
     }
 
     @Override

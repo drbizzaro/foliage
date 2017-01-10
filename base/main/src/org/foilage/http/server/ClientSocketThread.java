@@ -57,11 +57,11 @@ public class ClientSocketThread implements Runnable {
 
                     if (req.getHeaderMap().containsKey("accept") && req.getHeaderMap().get("accept").startsWith("image")) {
 
-                        FileRenderer.INSTANCE.renderFile(socket.getOutputStream(), req.getUrl(), serverEnv.getDataFilesRoot());
+                        FileRenderer.INSTANCE.renderFile(out, req.getUrl(), serverEnv.getDataFilesRoot());
 
                     } else if (req.getHeaderMap().containsKey("accept") && req.getHeaderMap().get("accept").startsWith("text/css")) {
 
-                        FileRenderer.INSTANCE.renderFile(socket.getOutputStream(), req.getUrl(), serverEnv.getDataFilesRoot());
+                        FileRenderer.INSTANCE.renderFile(out, req.getUrl(), serverEnv.getDataFilesRoot());
 
                     } else {
 
@@ -84,7 +84,7 @@ public class ClientSocketThread implements Runnable {
 
                     try {
 
-                        FileRenderer.INSTANCE.renderFile(socket.getOutputStream(), req.getUrl(), serverEnv.getDataFilesRoot());
+                        FileRenderer.INSTANCE.renderFile(out, req.getUrl(), serverEnv.getDataFilesRoot());
 
                     } catch (NotAuthorizedException ex) {
 

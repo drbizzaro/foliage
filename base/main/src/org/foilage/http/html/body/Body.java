@@ -7,10 +7,10 @@ import java.util.List;
 
 public class Body extends HtmlComponentImpl {
 
-    private final List<HtmlComponent> components;
+    private final Builder builder;
 
-    public Body(List<HtmlComponent> components) {
-        this.components = components;
+    public Body(Builder builder) {
+        this.builder = builder;
 
         tabOffset = 0;
     }
@@ -18,9 +18,11 @@ public class Body extends HtmlComponentImpl {
     @Override
     protected void generateHtmlSpecific(HtmlComponentImpl parent, boolean onSameRow) {
 
-        htmlBuilder.append("<body>\n");
+        htmlBuilder.append("<body ");
+        htmlBuilder.append(builder.addGeneralComponents());
+        htmlBuilder.append(">\n");
 
-        for(HtmlComponent component: components){
+        for(HtmlComponent component: builder.components){
             htmlBuilder.append(component.getHtml(this, false));
         }
 
@@ -28,7 +30,7 @@ public class Body extends HtmlComponentImpl {
         htmlBuilder.append("</body>\n");
     }
 
-    public static class Builder implements ComponentBuilder<Body>, HtmlComponentStorage<HtmlComponent> {
+    public static class Builder extends BaseEventComponentBuilder<Body, Builder> implements HtmlComponentStorage<HtmlComponent> {
 
         private List<HtmlComponent> components;
 
@@ -39,7 +41,7 @@ public class Body extends HtmlComponentImpl {
 
         @Override
         public Body build() {
-            return new Body(components);
+            return new Body(this);
         }
 
         @Override
