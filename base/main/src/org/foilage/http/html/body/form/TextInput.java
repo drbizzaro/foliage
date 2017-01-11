@@ -52,7 +52,6 @@ public class TextInput extends HtmlComponentImpl {
         htmlBuilder.append(" type=\"text\"");
 
         htmlBuilder.append(">\n");
-
     }
 
     public static class Builder extends InputBuilder<TextInput,Builder> {
