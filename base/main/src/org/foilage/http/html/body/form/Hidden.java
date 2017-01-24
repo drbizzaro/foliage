@@ -8,7 +8,7 @@ public class Hidden extends HtmlComponentImpl {
 
     public Hidden(String name, String value) {
 
-        this.builder = new Hidden.Builder().name(name).value(value);
+        this.builder = new Hidden.Builder(name, value);
     }
 
     public Hidden(Builder builder) {
@@ -32,6 +32,15 @@ public class Hidden extends HtmlComponentImpl {
         private String placeholder = null;
 
         private boolean required = false;
+
+        public Builder() {
+        }
+
+        public Builder(String name, String value) {
+
+            this.name(name);
+            this.value(value);
+        }
 
         public Builder placeholder(String placeholder) {
 
