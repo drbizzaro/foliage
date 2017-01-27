@@ -53,7 +53,15 @@ public enum SessionStore {
 
         } else {
 
-            String id = sessionId.replace("X-FOILAGE-SESSION-ID=", "");
+            String id = "";
+
+            for(String parameter:sessionId.split(";")) {
+
+                if(parameter.trim().startsWith("X-FOILAGE-SESSION-ID=")) {
+
+                    id = parameter.trim().replace("X-FOILAGE-SESSION-ID=", "");
+                }
+            }
 
             SessionObject obj = activeMap.get(id);
 
