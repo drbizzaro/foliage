@@ -59,7 +59,7 @@ public class Checkbox extends HtmlComponentImpl {
             this.title(value);
         }
 
-        public Builder required(boolean checked) {
+        public Builder checked(boolean checked) {
 
             this.checked = checked; return this;
         }
