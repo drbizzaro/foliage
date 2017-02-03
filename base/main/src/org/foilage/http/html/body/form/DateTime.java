@@ -29,7 +29,7 @@ public class DateTime extends HtmlComponentImpl {
 
         if(builder.placeholder!=null) {
 
-            htmlBuilder.append("placeholder=\"");
+            htmlBuilder.append(" placeholder=\"");
             htmlBuilder.append(builder.placeholder);
             htmlBuilder.append("\"");
         }
