@@ -2,8 +2,11 @@ package org.foilage.http.server;
 
 import org.foilage.http.StatusCode;
 import org.foilage.http.exceptions.URLNotFoundException;
+import org.foilage.utils.DateUtil;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -32,6 +35,8 @@ public class HttpServerEnvironment {
     private final ServerEndPoint defaultErrorEndPoint;
 
     private final List<Locale> availableLanguages;
+
+    protected final static SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMMM YYYY HH:mm:ss");
 
     public HttpServerEnvironment(String serverName, String domain, String baseUrl, int port, int bufferSize, boolean sessionsActive, File dataFilesRoot, List<PreEndPointLogicWorker> preEndPointWorkers, List<ServerEndPoint> endPointList, List<ServerEndPoint> errorEndPointList, ServerEndPoint defaultErrorEndPoint, List<Locale> availableLanguages) {
 
@@ -116,6 +121,46 @@ public class HttpServerEnvironment {
         }
 
         return defaultErrorEndPoint;
+    }
+
+    public String getRedirectData(String redirectUrl) {
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("HTTP/1.1 ");
+        sb.append(StatusCode.SEE_OTHER_303.getId());
+        sb.append(" ");
+        sb.append(StatusCode.SEE_OTHER_303.getName());
+        sb.append("\r\n");
+        sb.append("Location: ");
+        sb.append(redirectUrl);
+        sb.append("\r\n");
+        sb.append("Date: ");
+        sb.append(dateFormat.format(DateUtil.stepBack(new Date(), 3600000)));
+        sb.append(" GMT\r\n");
+
+        sb.append("Server: ");
+        sb.append(getServerName());
+        sb.append("\r\n");
+        sb.append("Connection: close\r\n");
+        sb.append("\r\n");
+        sb.append("<html>\n");
+        sb.append("<head>\n");
+        sb.append("<title>Moved</title>\n");
+        sb.append("</head>\n");
+        sb.append("<body>\n");
+        sb.append("<h1>Moved</h1>\n");
+        sb.append("<p>This page has moved to <a href=\"");
+        sb.append(redirectUrl);
+        sb.append("\">");
+        sb.append(redirectUrl);
+        sb.append("</a>");
+        sb.append("</p>\n");
+        sb.append("</body>\n");
+        sb.append("</html>");
+        sb.append("\r\n");
+
+        return sb.toString();
     }
 
     public List<Locale> getAvailableLanguages() {

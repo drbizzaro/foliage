@@ -5,6 +5,7 @@ import org.foilage.authorization.exceptions.NotAuthenticatedException;
 import org.foilage.authorization.exceptions.NotAuthorizedException;
 import org.foilage.http.RequestMethod;
 import org.foilage.http.StatusCode;
+import org.foilage.http.exceptions.HttpRedirect;
 import org.foilage.http.exceptions.HttpRequestLineException;
 import org.foilage.http.exceptions.URLNotFoundException;
 import org.pmw.tinylog.Logger;
@@ -108,6 +109,10 @@ public class ClientSocketThread implements Runnable {
                     out.write(serverEnv.findErrorEndPointByStatusCode(StatusCode.FORBIDDEN_403).renderEndPointResponse(serverEnv, errorRequest, new ResponseDataImpl(StatusCode.NOT_FOUND_404)));
 
                     Logger.error(e.getMessage());
+
+                }  catch (HttpRedirect e) {
+
+                    out.write(serverEnv.getRedirectData(e.getRedirectURL()).getBytes("UTF-8"));
 
                 } catch (IOException e) {
 
