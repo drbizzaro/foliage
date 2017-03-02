@@ -80,6 +80,20 @@ public class RequestData {
         }
     }
 
+    public float getFloatParam(String parameter) {
+
+        try {
+
+            return Float.parseFloat(parameterMap.get(parameter).replaceAll(",", "."));
+
+        } catch (NumberFormatException e) {
+
+            Logger.info("In parameter " + parameter + " with value " + parameterMap.get(parameter) + " not an float.");
+
+            return Integer.MIN_VALUE;
+        }
+    }
+
     public String getMessageBody() {
         return messageBody;
     }
