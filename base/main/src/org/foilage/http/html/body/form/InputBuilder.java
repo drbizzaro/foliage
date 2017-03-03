@@ -26,6 +26,8 @@ public abstract class InputBuilder<B,T> extends BaseEventComponentBuilder<B,T> {
 
     private String value = null;
 
+    private String onChange = null;
+
     /**
      * This method should be called from the html generation in the extending class constructor.
      * @return String The generated html code to be included in the extending class constructor.
@@ -62,6 +64,13 @@ public abstract class InputBuilder<B,T> extends BaseEventComponentBuilder<B,T> {
 
             html.append(" name=\"");
             html.append(name);
+            html.append("\"");
+        }
+
+        if(onChange!=null) {
+
+            html.append(" onChange=\"");
+            html.append(onChange);
             html.append("\"");
         }
 
@@ -125,6 +134,11 @@ public abstract class InputBuilder<B,T> extends BaseEventComponentBuilder<B,T> {
     public T value(String value) {
 
         this.value = value; return (T)this;
+    }
+
+    public T onChange(String onChange) {
+
+        this.onChange = onChange; return (T)this;
     }
 
 }

@@ -52,6 +52,16 @@ public class Span extends HtmlComponentImpl {
             components.add(component);
         }
 
+        public Builder(HtmlComponent... component) {
+
+            components = new ArrayList<>();
+
+            for(HtmlComponent comp: component) {
+
+                components.add(comp);
+            }
+        }
+
         @Override
         public Span build() {
             return new Span(this);
