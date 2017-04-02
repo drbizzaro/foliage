@@ -149,7 +149,14 @@ public enum RequestReader {
                     data += split[si];
                 }
 
-                requestMap.put(split[0].toLowerCase(), data.trim());
+                if("content-type".equalsIgnoreCase(split[0]) && data.startsWith("multipart/form-data")) {
+
+                    requestMap.put(split[0].toLowerCase(), data.split(";")[0].trim());
+
+                } else {
+
+                    requestMap.put(split[0].toLowerCase(), data.trim());
+                }
             }
         }
 
