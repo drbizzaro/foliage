@@ -3,6 +3,7 @@ package org.foilage.http.server;
 import org.foilage.http.RequestMethod;
 import org.pmw.tinylog.Logger;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.foilage.utils.checkers.NullChecker.notNull;
@@ -19,17 +20,20 @@ public class RequestData {
 
     private final Map<String,String> parameterMap;
 
+    private final List<UploadedFile> fileList;
+
     private final String messageBody;
 
     private SessionObject session = null;
 
-    public RequestData(RequestMethod method, String baseUrl, String url, Map<String, String> headerMap, Map<String,String> parameterMap, String messageBody) {
+    public RequestData(RequestMethod method, String baseUrl, String url, Map<String, String> headerMap, Map<String,String> parameterMap, List<UploadedFile> fileList, String messageBody) {
 
         this.method = notNull(method);
         this.baseUrl = notNull(baseUrl);
         this.url = notNull(url);
         this.headerMap = notNull(headerMap);
         this.parameterMap = notNull(parameterMap);
+        this.fileList = notNull(fileList);
         this.messageBody = notNull(messageBody);
     }
 
@@ -92,6 +96,10 @@ public class RequestData {
 
             return Integer.MIN_VALUE;
         }
+    }
+
+    public List<UploadedFile> getFileList() {
+        return fileList;
     }
 
     public String getMessageBody() {

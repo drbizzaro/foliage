@@ -23,7 +23,9 @@ public enum  MimeType {
     RITCH_TEXT(MimeCategory.TEXT, "richtext"),
     CSV(MimeCategory.TEXT, "csv"),
     V_CARD(MimeCategory.TEXT, "x-vcard"),
-    XML(MimeCategory.TEXT, "xml");
+    XML(MimeCategory.TEXT, "xml"),
+
+    NONE(MimeCategory.NONE, "");
 
     private MimeCategory category;
 
@@ -32,6 +34,21 @@ public enum  MimeType {
     private MimeType(MimeCategory category, String mimeType) {
         this.category = category;
         this.mimeType = mimeType;
+    }
+
+    public static MimeType parseType(String mimeString) {
+
+        String[] mimeArray = mimeString.split("/");
+
+        for(MimeType type: MimeType.values()) {
+
+            if(type.category.getCategoryId().equalsIgnoreCase(mimeArray[0]) && type.getMimeType().equalsIgnoreCase(mimeArray[1])) {
+
+                return type;
+            }
+        }
+
+        throw new IllegalArgumentException("No valid mimetype found for "+mimeString);
     }
 
     public MimeCategory getCategory() {

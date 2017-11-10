@@ -2,6 +2,7 @@ package org.foilage.http.server;
 
 import org.foilage.http.RequestMethod;
 import org.foilage.http.exceptions.HttpRequestLineException;
+import org.foilage.model.MimeType;
 import org.pmw.tinylog.Logger;
 
 import java.io.IOException;
@@ -85,14 +86,81 @@ public enum RequestReader {
 
             RequestMethod requestMethod = parseRequestMethod(requestLine);
 
-            Map<String,String> parameterMap = parseParameterMap(requestLine[1]);
+            Map<String,String> parameterMap = new HashMap<>();
 
-            if(requestMethod==RequestMethod.POST) {
+            if(headerMap.containsKey("content-type") && headerMap.get("content-type").startsWith("multipart/form-data")) {
 
-                parsePostParameters(parameterMap, requestDataLines.get(requestDataLines.size()-1));
+                String boundaryString = headerMap.get("content-type").split("boundary=")[1];
+
+                boolean startFound = false;
+
+                for(int pos=0;pos<requestDataLines.size();pos++) {
+
+                    if(startFound) {
+
+                        if (boundaryString.equals(requestDataLines.get(pos)) || ("--"+boundaryString).equals(requestDataLines.get(pos))) {
+
+                            pos++;
+
+                            String data = "";
+                            String name = "";
+                            String fileName = "";
+                            MimeType mimeType = MimeType.NONE;
+
+                            for(; !boundaryString.equals(requestDataLines.get(pos)) && !(boundaryString+"--").equals(requestDataLines.get(pos)) ;pos++) {
+
+                                if(requestDataLines.get(pos).startsWith("Content-Disposition")) {
+
+                                    for(String d: requestDataLines.get(pos).split(";")) {
+
+                                        if(d.startsWith(" name=")) {
+
+                                            name = d.split("\\\"")[1];
+
+                                        } else if(d.startsWith(" filename=")) {
+
+                                            fileName = d.split("\\\"")[1];
+                                        }
+                                    }
+
+                                } else if(requestDataLines.get(pos).startsWith("Content-Type")) {
+
+                                    mimeType = MimeType.parseType(requestDataLines.get(pos).split(": ")[1]);
+
+                                } else if(requestDataLines.get(pos).length()==0) {
+
+                                    pos++;
+
+                                    data = requestDataLines.get(pos);
+                                }
+                            }
+
+                        }
+
+                    } else {
+
+                        if(requestDataLines.get(pos).length()==0) {
+                            startFound = true;
+                        }
+                    }
+                }
+
+                System.out.println("sdfsd");
+                //parseMultipartData();
+
+            } else {
+
+                parseParameterMap(requestLine[1]);
+
+                if(requestMethod==RequestMethod.POST) {
+
+                    parsePostParameters(parameterMap, requestDataLines.get(requestDataLines.size()-1));
+                }
             }
 
-            return new RequestData(requestMethod, baseUrl, parseRequestURL(requestLine), headerMap, parameterMap, new String(dataBuffer));
+            List<UploadedFile> fileList = new ArrayList<>();
+
+            return new RequestData(requestMethod, baseUrl, parseRequestURL(requestLine), headerMap, parameterMap, fileList, new String(dataBuffer));
 
         } else{
 

@@ -3,7 +3,9 @@ package org.foilage.model;
 public enum MimeCategory {
 
     APPLICATION("application"), AUDIO("audio"), IMAGE("image"), MESSAGE("message"), TEXT("text"),
-    VIDEO("video"), X_WORLD("x-world");
+    VIDEO("video"), X_WORLD("x-world"),
+
+    NONE("");
 
     private String categoryId;
 
