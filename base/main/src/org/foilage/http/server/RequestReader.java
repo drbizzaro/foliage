@@ -87,10 +87,11 @@ public enum RequestReader {
             RequestMethod requestMethod = parseRequestMethod(requestLine);
 
             Map<String,String> parameterMap = new HashMap<>();
+            List<UploadedFile> fileList = new ArrayList<>();
 
             if(headerMap.containsKey("content-type") && headerMap.get("content-type").startsWith("multipart/form-data")) {
 
-                String boundaryString = headerMap.get("content-type").split("boundary=")[1];
+                String boundaryString = "--"+headerMap.get("content-type").split("boundary=")[1];
 
                 boolean startFound = false;
 
@@ -98,7 +99,7 @@ public enum RequestReader {
 
                     if(startFound) {
 
-                        if (boundaryString.equals(requestDataLines.get(pos)) || ("--"+boundaryString).equals(requestDataLines.get(pos))) {
+                        if (boundaryString.equals(requestDataLines.get(pos))) {
 
                             pos++;
 
@@ -127,14 +128,22 @@ public enum RequestReader {
 
                                     mimeType = MimeType.parseType(requestDataLines.get(pos).split(": ")[1]);
 
-                                } else if(requestDataLines.get(pos).length()==0) {
+                                } else if(requestDataLines.get(pos).length()>0) {
 
-                                    pos++;
-
-                                    data = requestDataLines.get(pos);
+                                    data += requestDataLines.get(pos);
                                 }
                             }
 
+                            if(mimeType == MimeType.NONE) {
+
+                                parameterMap.put(name, data);
+
+                            } else {
+
+                                fileList.add(new UploadedFile(fileName, mimeType, data.getBytes()));
+                            }
+
+                            pos--;
                         }
 
                     } else {
@@ -157,8 +166,6 @@ public enum RequestReader {
                     parsePostParameters(parameterMap, requestDataLines.get(requestDataLines.size()-1));
                 }
             }
-
-            List<UploadedFile> fileList = new ArrayList<>();
 
             return new RequestData(requestMethod, baseUrl, parseRequestURL(requestLine), headerMap, parameterMap, fileList, new String(dataBuffer));
 
