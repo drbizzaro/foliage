@@ -154,9 +154,6 @@ public enum RequestReader {
                     }
                 }
 
-                System.out.println("sdfsd");
-                //parseMultipartData();
-
             } else {
 
                 parseParameterMap(requestLine[1]);
