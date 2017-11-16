@@ -156,7 +156,7 @@ public enum RequestReader {
 
             } else {
 
-                parseParameterMap(requestLine[1]);
+                parameterMap = parseParameterMap(requestLine[1]);
 
                 if(requestMethod==RequestMethod.POST) {
 
