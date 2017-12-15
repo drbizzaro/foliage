@@ -60,6 +60,7 @@ public enum SessionStore {
                 if(parameter.trim().startsWith("X-FOILAGE-SESSION-ID=")) {
 
                     id = parameter.trim().replace("X-FOILAGE-SESSION-ID=", "");
+
                 }
             }
 
@@ -91,7 +92,7 @@ public enum SessionStore {
 
     private SessionObject addSession(String ip) {
 
-        SessionObject sessionObject = new SessionObject(Now.date(), Now.date(), Base64.encode((Math.random()*10000000000000L+ip+System.currentTimeMillis()).getBytes()), ip, true);
+        SessionObject sessionObject = new SessionObject(Now.date(), Now.date(), Base64.encode((Math.random()*10000000000000L+ip+System.currentTimeMillis()).getBytes()), ip, true, false);
 
         activeMap.put(sessionObject.getSessionId(), sessionObject);
 

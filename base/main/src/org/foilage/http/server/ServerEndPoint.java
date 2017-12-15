@@ -95,6 +95,18 @@ public abstract class ServerEndPoint <R extends ResponseData> {
             req.getSession().setCreateClientCookie(false);
         }
 
+        if(serverEnv.isSessionsActive() && (req.getSession()!=null && req.getSession().isCreateAutoLoginCookie())) {
+
+            sb.append("Set-Cookie:");
+            sb.append("X-FOILAGE-AUTOLOGIN-ID=");
+            sb.append(req.getSession().getSessionId());
+            sb.append("; domain=");
+            sb.append(serverEnv.getDomain());
+            sb.append(";path=/;\r\n");
+
+            req.getSession().setCreateAutoLoginCookie(true);
+        }
+
         sb.append("Connection: close\r\n");
         sb.append("\r\n");
         sb.append(responseData);

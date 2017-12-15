@@ -25,7 +25,9 @@ public class SessionObject {
 
     private boolean createClientCookie;
 
-    public SessionObject(Date createdDate, Date lastActionDate, String sessionId, String ipAddress, boolean createClientCookie) {
+    private boolean createAutoLoginCookie;
+
+    public SessionObject(Date createdDate, Date lastActionDate, String sessionId, String ipAddress, boolean createClientCookie, boolean createAutoLoginCookie) {
         this.createdDate = notNull(createdDate);
         this.lastActionDate = notNull(lastActionDate);
         this.sessionId = notNull(sessionId);
@@ -34,6 +36,7 @@ public class SessionObject {
         this.roleList.add(Role.NOT_AUTHENTICATED);
         this.userId = 0;
         this.createClientCookie = createClientCookie;
+        this.createAutoLoginCookie = createAutoLoginCookie;
     }
 
     public Date getCreatedDate() {
@@ -90,5 +93,13 @@ public class SessionObject {
 
     public void setCreateClientCookie(boolean createClientCookie) {
         this.createClientCookie = createClientCookie;
+    }
+
+    public boolean isCreateAutoLoginCookie() {
+        return createAutoLoginCookie;
+    }
+
+    public void setCreateAutoLoginCookie(boolean createAutoLoginCookie) {
+        this.createAutoLoginCookie = createAutoLoginCookie;
     }
 }
