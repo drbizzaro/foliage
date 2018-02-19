@@ -6,6 +6,8 @@ import org.pmw.tinylog.Logger;
 
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +25,10 @@ public abstract class ServerEndPoint <R extends ResponseData> {
     private final List<Role> denyRoles;
 
     protected final List<LogicWorker> preRenderLogicList;
+
+    private final static String TWO_HOURS = (2*60*60)+"";
+
+    private final static String THIRTY_DAYS = (30*24*60*60)+"";
 
     protected ServerEndPoint(List<String> path, List<Role> accessRoles, List<Role> denyRoles) {
 
@@ -90,6 +96,11 @@ public abstract class ServerEndPoint <R extends ResponseData> {
             sb.append(req.getSession().getSessionId());
             sb.append("; domain=");
             sb.append(serverEnv.getDomain());
+            sb.append(";expires=");
+            //sb.append(LocalDateTime.now().plusHours(2).format(DateTimeFormatter.ofPattern("EEE, dd LLL YYYY HH:mm:ss zzz")));
+            sb.append(LocalDateTime.now().plusHours(2).format(DateTimeFormatter.ofPattern("EEE, dd LLL YYYY HH:mm:ss")));
+            sb.append(";max-age=");
+            sb.append(TWO_HOURS);
             sb.append(";path=/;\r\n");
 
             req.getSession().setCreateClientCookie(false);
@@ -102,6 +113,11 @@ public abstract class ServerEndPoint <R extends ResponseData> {
             sb.append(req.getSession().getSessionId());
             sb.append("; domain=");
             sb.append(serverEnv.getDomain());
+            sb.append(";expires=");
+            //sb.append(LocalDateTime.now().plusDays(30).format(DateTimeFormatter.ofPattern("EEE, dd LLL YYYY HH:mm:ss zzz")));
+            sb.append(LocalDateTime.now().plusDays(30).format(DateTimeFormatter.ofPattern("EEE, dd LLL YYYY HH:mm:ss")));
+            sb.append(";max-age=");
+            sb.append(THIRTY_DAYS);
             sb.append(";path=/;\r\n");
 
             req.getSession().setCreateAutoLoginCookie(true);
