@@ -2,6 +2,7 @@ package org.foilage.http.server;
 
 import org.foilage.authorization.Role;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -11,9 +12,9 @@ import static org.foilage.utils.checkers.NullChecker.notNull;
 
 public class SessionObject {
 
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
-    private Date lastActionDate;
+    private LocalDateTime lastActionDate;
 
     private String sessionId;
 
@@ -27,7 +28,7 @@ public class SessionObject {
 
     private boolean createAutoLoginCookie;
 
-    public SessionObject(Date createdDate, Date lastActionDate, String sessionId, String ipAddress, boolean createClientCookie, boolean createAutoLoginCookie) {
+    public SessionObject(LocalDateTime createdDate, LocalDateTime lastActionDate, String sessionId, String ipAddress, boolean createClientCookie, boolean createAutoLoginCookie) {
         this.createdDate = notNull(createdDate);
         this.lastActionDate = notNull(lastActionDate);
         this.sessionId = notNull(sessionId);
@@ -39,19 +40,19 @@ public class SessionObject {
         this.createAutoLoginCookie = createAutoLoginCookie;
     }
 
-    public Date getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 
-    public Date getLastActionDate() {
+    public LocalDateTime getLastActionDate() {
         return lastActionDate;
     }
 
-    public void setLastActionDate(Date lastActionDate) {
+    public void setLastActionDate(LocalDateTime lastActionDate) {
         this.lastActionDate = lastActionDate;
     }
 

@@ -1,20 +1,15 @@
 package org.foilage.http.server;
 
 import org.foilage.authorization.Role;
-import org.foilage.utils.DateUtil;
 import org.pmw.tinylog.Logger;
 
 import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public abstract class ServerEndPoint <R extends ResponseData> {
-
-    protected final static SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMMM YYYY HH:mm:ss");
 
     private final List<String> path;
 
@@ -82,7 +77,7 @@ public abstract class ServerEndPoint <R extends ResponseData> {
         sb.append("\r\n");
 
         sb.append("Date: ");
-        sb.append(dateFormat.format(DateUtil.stepBack(new Date(), 3600000)));
+        sb.append(LocalDateTime.now().minusHours(1).format(DateTimeFormatter.ofPattern("EEE, dd MMMM YYYY HH:mm:ss")));
         sb.append(" GMT\r\n");
 
         sb.append("Server: ");
