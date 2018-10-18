@@ -26,7 +26,7 @@ public abstract class BaseComponentBuilder<B,T> implements ComponentBuilder<B> {
 
     protected Boolean spellCheck = null;
 
-    protected String style = null;
+    public String style = null;
 
     protected int tabIndex = 0;
 
