@@ -1,5 +1,7 @@
 package org.foilage.utils;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -16,6 +18,30 @@ public class Now {
         }
 
         throw new IllegalArgumentException("Time source error in method currentTimeMillis() for time source type "+timeSourceType.name());
+    }
+
+    public static LocalDate localDate() {
+
+        switch (timeSourceType) {
+
+            case SYSTEM:
+
+                return LocalDate.now();
+        }
+
+        throw new IllegalArgumentException("Time source error in method date() for time source type "+timeSourceType.name());
+    }
+
+    public static LocalDateTime localDateTime() {
+
+        switch (timeSourceType) {
+
+            case SYSTEM:
+
+                return LocalDateTime.now();
+        }
+
+        throw new IllegalArgumentException("Time source error in method date() for time source type "+timeSourceType.name());
     }
 
     public static Date date() {

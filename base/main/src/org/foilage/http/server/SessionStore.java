@@ -1,7 +1,6 @@
 package org.foilage.http.server;
 
 import com.sun.org.apache.xml.internal.security.utils.Base64;
-import org.foilage.utils.DateUtil;
 import org.foilage.utils.Now;
 
 import java.util.HashMap;
@@ -11,8 +10,8 @@ public enum SessionStore {
 
     I;
 
-    // Max idle time in Milliseconds
-    private final int maxIdle = 60*60*1000;
+    // Max idle time in seconds
+    private final int maxIdle = 60*60;
 
     private Map<String,SessionObject> activeMap;
 
@@ -38,7 +37,7 @@ public enum SessionStore {
 
             } else {
 
-                obj.setLastActionDate(Now.date());
+                obj.setLastActionDate(Now.localDateTime());
 
                 return true;
             }
@@ -76,13 +75,13 @@ public enum SessionStore {
 
             } else {
 
-                if (Now.date().after(DateUtil.stepForward(obj.getLastActionDate(), maxIdle))) {
+                if (Now.localDateTime().isAfter(obj.getLastActionDate().plusSeconds(maxIdle))) {
 
                     return addSession(ip);
 
                 } else {
 
-                    obj.setLastActionDate(Now.date());
+                    obj.setLastActionDate(Now.localDateTime());
 
                     return obj;
                 }
@@ -92,7 +91,7 @@ public enum SessionStore {
 
     private SessionObject addSession(String ip) {
 
-        SessionObject sessionObject = new SessionObject(Now.date(), Now.date(), Base64.encode((Math.random()*10000000000000L+ip+System.currentTimeMillis()).getBytes()), ip, true, false);
+        SessionObject sessionObject = new SessionObject(Now.localDateTime(), Now.localDateTime(), Base64.encode((Math.random()*10000000000000L+ip+System.currentTimeMillis()).getBytes()), ip, true, false);
 
         activeMap.put(sessionObject.getSessionId(), sessionObject);
 

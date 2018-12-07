@@ -30,11 +30,14 @@ public enum ApplicationConfigHandler {
         } catch(Exception ex) {
             try{
 
+                String errorMess = "Problem loading settings file "+url+" : "+settingsFileName+": ";
+                Logger.error(errorMess+"\n"+ex+"\n");
+
                 properties.loadFromXML(new FileInputStream(System.getProperty("java.io.tmpdir")+System.getProperty("file.separator")+settingsFileName));
 
             } catch (Exception e) {
 
-                String errorMess = "Problem loading settings file "+settingsFileName+": ";
+                String errorMess = "Problem loading settings file "+System.getProperty("java.io.tmpdir")+": "+settingsFileName+": ";
 
                 Logger.error(errorMess+"\n"+e+"\n"+ex);
                 throw new RuntimeException(errorMess+"\n"+e+"\n"+ex);

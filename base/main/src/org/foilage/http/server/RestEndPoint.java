@@ -1,11 +1,10 @@
 package org.foilage.http.server;
 
 import org.foilage.authorization.Role;
-import org.foilage.utils.DateUtil;
-import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.foilage.http.StatusCode.NOT_IMPLEMENTED_501;
@@ -39,7 +38,7 @@ public abstract class RestEndPoint extends ServerEndPoint {
             sb.append("\r\n");
 
             sb.append("Date: ");
-            sb.append(dateFormat.format(DateUtil.stepBack(new Date(), 3600000)));
+            sb.append(LocalDateTime.now().minusHours(1).format(DateTimeFormatter.ofPattern("EEE, dd MMMM YYYY HH:mm:ss")));
             sb.append(" GMT\r\n");
 
             sb.append("Server: ");
@@ -94,7 +93,8 @@ public abstract class RestEndPoint extends ServerEndPoint {
         StringBuilder sb = new StringBuilder();
 
         sb.append("HTTP/1.1 "+ NOT_IMPLEMENTED_501.getId()+" "+NOT_IMPLEMENTED_501.getName()+"\r\n");
-        sb.append("Date: "+dateFormat.format(DateUtil.stepBack(new Date(), 3600000))+" GMT\r\n");
+        sb.append(LocalDateTime.now().minusHours(1).format(DateTimeFormatter.ofPattern("EEE, dd MMMM YYYY HH:mm:ss")));
+        sb.append(" GMT\r\n");
         sb.append("Server: "+serverEnvironment.getServerName()+"\r\n");
         sb.append("Connection: close\r\n");
 

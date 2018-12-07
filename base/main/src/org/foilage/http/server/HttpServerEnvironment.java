@@ -2,11 +2,10 @@ package org.foilage.http.server;
 
 import org.foilage.http.StatusCode;
 import org.foilage.http.exceptions.URLNotFoundException;
-import org.foilage.utils.DateUtil;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
@@ -35,8 +34,6 @@ public class HttpServerEnvironment {
     private final ServerEndPoint defaultErrorEndPoint;
 
     private final List<Locale> availableLanguages;
-
-    protected final static SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMMM YYYY HH:mm:ss");
 
     public HttpServerEnvironment(String serverName, String domain, String baseUrl, int port, int bufferSize, boolean sessionsActive, File dataFilesRoot, List<PreEndPointLogicWorker> preEndPointWorkers, List<ServerEndPoint> endPointList, List<ServerEndPoint> errorEndPointList, ServerEndPoint defaultErrorEndPoint, List<Locale> availableLanguages) {
 
@@ -136,7 +133,7 @@ public class HttpServerEnvironment {
         sb.append(redirectUrl);
         sb.append("\r\n");
         sb.append("Date: ");
-        sb.append(dateFormat.format(DateUtil.stepBack(new Date(), 3600000)));
+        sb.append(LocalDateTime.now().minusHours(1).format(DateTimeFormatter.ofPattern("EEE, dd MMMM YYYY HH:mm:ss")));
         sb.append(" GMT\r\n");
 
         sb.append("Server: ");

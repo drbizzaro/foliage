@@ -22,6 +22,8 @@ public class Form extends HtmlComponentImpl {
 
         htmlBuilder.append("<form");
 
+        htmlBuilder.append(builder.addGeneralComponents());
+
         if(builder.acceptCharset!=null) {
 
             htmlBuilder.append(" accept-charset=\"");
