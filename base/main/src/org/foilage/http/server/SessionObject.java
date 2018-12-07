@@ -3,7 +3,6 @@ package org.foilage.http.server;
 import org.foilage.authorization.Role;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
