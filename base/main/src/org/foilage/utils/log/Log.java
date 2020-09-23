@@ -14,47 +14,47 @@ public class Log {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public static synchronized void debug(Exception exception) {
+    public static void debug(Exception exception) {
 
         write(DebugLevel.DEBUG, exception);
     }
 
-    public static synchronized void debug(String message) {
+    public static void debug(String message) {
 
         write(DebugLevel.DEBUG, message);
     }
 
-    public static synchronized void info(Exception exception) {
+    public static void info(Exception exception) {
 
         write(DebugLevel.INFO, exception);
     }
 
-    public static synchronized void info(String message) {
+    public static void info(String message) {
 
         write(DebugLevel.INFO, message);
     }
 
-    public static synchronized void error(Exception exception) {
+    public static void error(Exception exception) {
 
         write(DebugLevel.ERROR, exception);
     }
 
-    public static synchronized void error(String message) {
+    public static void error(String message) {
 
         write(DebugLevel.ERROR, message);
     }
 
-    public static synchronized void fatal(Exception exception) {
+    public static void fatal(Exception exception) {
 
         write(DebugLevel.FATAL, exception);
     }
 
-    public static synchronized void fatal(String message) {
+    public static void fatal(String message) {
 
         write(DebugLevel.FATAL, message);
     }
 
-    private static synchronized void write(DebugLevel debugLevel, Exception exception) {
+    private static void write(DebugLevel debugLevel, Exception exception) {
 
         if(currentDebugLevel.getLevel()<=DebugLevel.FATAL.getLevel()) {
 
