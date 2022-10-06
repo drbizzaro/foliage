@@ -17,15 +17,9 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.tinylog</groupId>
-            <artifactId>tinylog</artifactId>
-            <version>1.1-rc-2</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20160212</version>
+            <version>20200518</version>
         </dependency>
 
     </dependencies>

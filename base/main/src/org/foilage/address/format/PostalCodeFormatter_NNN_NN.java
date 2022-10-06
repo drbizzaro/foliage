@@ -1,6 +1,6 @@
 package org.foilage.address.format;
 
-import org.pmw.tinylog.Logger;
+import org.foilage.utils.log.Log;
 
 public class PostalCodeFormatter_NNN_NN implements PostalCodeFormatter {
 
@@ -19,7 +19,7 @@ public class PostalCodeFormatter_NNN_NN implements PostalCodeFormatter {
 
         } catch (Exception e) {
 
-            Logger.info("PostalCodeFormatter_NNN_NN.formatPostalCode error for postalCode "+postalCode+": "+e.getMessage());
+            Log.info("PostalCodeFormatter_NNN_NN.formatPostalCode error for postalCode "+postalCode+": "+e.getMessage());
 
             return postalCode;
         }

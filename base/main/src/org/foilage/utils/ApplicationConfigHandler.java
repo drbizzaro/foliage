@@ -1,6 +1,6 @@
 package org.foilage.utils;
 
-import org.pmw.tinylog.Logger;
+import org.foilage.utils.log.Log;
 
 import java.io.FileInputStream;
 import java.util.Properties;
@@ -16,7 +16,7 @@ public enum ApplicationConfigHandler {
      * */
     public Properties load(String settingsFileName) {
 
-        Logger.trace("Basedir: "+System.getProperty("user.dir"));
+        Log.debug("Basedir: "+System.getProperty("user.dir"));
 
         String url = System.getProperty("user.dir")+"/";
         url = url.replaceAll("%20", " ");
@@ -31,7 +31,7 @@ public enum ApplicationConfigHandler {
             try{
 
                 String errorMess = "Problem loading settings file "+url+" : "+settingsFileName+": ";
-                Logger.error(errorMess+"\n"+ex+"\n");
+                Log.error(errorMess+"\n"+ex+"\n");
 
                 properties.loadFromXML(new FileInputStream(System.getProperty("java.io.tmpdir")+System.getProperty("file.separator")+settingsFileName));
 
@@ -39,7 +39,7 @@ public enum ApplicationConfigHandler {
 
                 String errorMess = "Problem loading settings file "+System.getProperty("java.io.tmpdir")+": "+settingsFileName+": ";
 
-                Logger.error(errorMess+"\n"+e+"\n"+ex);
+                Log.error(errorMess+"\n"+e+"\n"+ex);
                 throw new RuntimeException(errorMess+"\n"+e+"\n"+ex);
 
             }

@@ -2,7 +2,7 @@ package org.foilage.utils.log;
 
 public enum DebugLevel {
 
-    DEBUG(1), INFO(10), ERROR(20), FATAL(30);
+    TRACE(0), DEBUG(1), INFO(10), ERROR(20), FATAL(30);
 
     private final int level;
 

@@ -1,7 +1,7 @@
 package org.foilage.dao;
 
 import org.foilage.utils.checkers.AbstractNullChecker;
-import org.pmw.tinylog.Logger;
+import org.foilage.utils.log.Log;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
@@ -29,7 +29,7 @@ public class DAOHandler<T> extends AbstractNullChecker implements InvocationHand
         } catch (InvocationTargetException e) {
 
             String msg = "DAOHandler reports: "+method.getDeclaringClass().getName()+"."+method.getName() + " - " + e.getCause();
-            Logger.debug(msg);
+            Log.debug(msg);
             throw e.getCause();
         }
     }

@@ -1,7 +1,7 @@
 package org.foilage.database;
 
 import org.foilage.utils.ObjectPool;
-import org.pmw.tinylog.Logger;
+import org.foilage.utils.log.Log;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -27,7 +27,7 @@ public class MySQLConnectionPool {
                             //"user="+credentials.getUser()+"&password="+credentials.getPassword()+"&useSSL=false&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone="+credentials.getServerTimeZone());
                 } catch(SQLException e) {
 
-                    Logger.error("Problem creating connection for database pool - "+e.getClass().toString()+" - "+e.getMessage());
+                    Log.error("Problem creating connection for database pool - "+e.getClass().toString()+" - "+e.getMessage());
                     return null;
                 }
             }
@@ -60,7 +60,7 @@ public class MySQLConnectionPool {
 
         } catch(SQLException e) {
 
-            Logger.error("Could not get database connection from pool "+e.getMessage());
+            Log.error("Could not get database connection from pool "+e.getMessage());
             throw new RuntimeException("Could not get database connection from pool "+e.getMessage(), e);
         }
     }
@@ -83,7 +83,7 @@ public class MySQLConnectionPool {
 
         } catch(SQLException e) {
 
-            Logger.error("MySQLConnectionPool.returnConnection Problem releasing pooled connection "+e.getMessage());
+            Log.error("MySQLConnectionPool.returnConnection Problem releasing pooled connection "+e.getMessage());
         }
 
     }

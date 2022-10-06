@@ -14,6 +14,16 @@ public class Log {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+    public static void trace(Exception exception) {
+
+        write(DebugLevel.TRACE, exception);
+    }
+
+    public static void trace(String message) {
+
+        write(DebugLevel.TRACE, message);
+    }
+
     public static void debug(Exception exception) {
 
         write(DebugLevel.DEBUG, exception);
@@ -56,7 +66,7 @@ public class Log {
 
     private static void write(DebugLevel debugLevel, Exception exception) {
 
-        if(currentDebugLevel.getLevel()<=DebugLevel.FATAL.getLevel()) {
+        if(currentDebugLevel.getLevel()<=debugLevel.getLevel()) {
 
             StringBuilder sb = new StringBuilder();
 
@@ -76,7 +86,7 @@ public class Log {
 
     private static synchronized void write(DebugLevel debugLevel, String message) {
 
-        if(currentDebugLevel.getLevel()<=DebugLevel.FATAL.getLevel()) {
+        if(currentDebugLevel.getLevel()<=debugLevel.getLevel()) {
 
             try {
 

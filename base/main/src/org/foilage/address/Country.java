@@ -16,9 +16,7 @@ public enum Country {
     SWEDEN("sv", "SE", "SWE", 752, "SEK", new AddressFormatSwedish(), PostalCodeValidator.NUMERIC_5N),
     //FINLAND("fi","FI", "FIN", 246, "EUR", new AddressFormatSwedish(), PostalCodeValidator.NUMERIC_5N),
     //ICELAND("is","IS", "ISL", 354, "ISK", new AddressFormatSwedish(), PostalCodeValidator.UNKNOWN),
-
-
-            ;
+    ;
 
     private final String languageCode;
 

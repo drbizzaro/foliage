@@ -8,7 +8,7 @@ import org.foilage.http.StatusCode;
 import org.foilage.http.exceptions.HttpRedirect;
 import org.foilage.http.exceptions.HttpRequestLineException;
 import org.foilage.http.exceptions.URLNotFoundException;
-import org.pmw.tinylog.Logger;
+import org.foilage.utils.log.Log;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -34,7 +34,7 @@ public class ClientSocketThread implements Runnable {
     @Override
     public void run() {
 
-        Logger.debug("Call: " + Thread.currentThread().getName() + " count: " + Thread.activeCount());
+        Log.debug("Call: " + Thread.currentThread().getName() + " count: " + Thread.activeCount());
         long startTime = System.currentTimeMillis();
 
         try {
@@ -53,7 +53,7 @@ public class ClientSocketThread implements Runnable {
                     preWorker.performLogic(serverEnv, req);
                 }
 
-                Logger.debug(req.getMethod().name());
+                Log.debug(req.getMethod().name());
 
                 try {
 
@@ -92,13 +92,13 @@ public class ClientSocketThread implements Runnable {
 
                         out.write(serverEnv.findErrorEndPointByStatusCode(StatusCode.FORBIDDEN_403).renderEndPointResponse(serverEnv, errorRequest, new ResponseDataImpl(StatusCode.NOT_FOUND_404)));
 
-                        Logger.error(e.getMessage());
+                        Log.error(e.getMessage());
 
                     } catch (Exception ex) {
 
                         out.write(serverEnv.findErrorEndPointByStatusCode(StatusCode.NOT_FOUND_404).renderEndPointResponse(serverEnv, errorRequest, new ResponseDataImpl(StatusCode.NOT_FOUND_404)));
 
-                        Logger.info(ex.getMessage());
+                        Log.info(ex.getMessage());
                     }
 
                 } catch(NotAuthenticatedException e) {
@@ -109,7 +109,7 @@ public class ClientSocketThread implements Runnable {
 
                     out.write(serverEnv.findErrorEndPointByStatusCode(StatusCode.FORBIDDEN_403).renderEndPointResponse(serverEnv, errorRequest, new ResponseDataImpl(StatusCode.NOT_FOUND_404)));
 
-                    Logger.error(e.getMessage());
+                    Log.error(e.getMessage());
 
                 }  catch (HttpRedirect e) {
 
@@ -119,14 +119,14 @@ public class ClientSocketThread implements Runnable {
 
                     out.write(serverEnv.findErrorEndPointByStatusCode(StatusCode.NOT_FOUND_404).renderEndPointResponse(serverEnv, errorRequest, new ResponseDataImpl(StatusCode.NOT_FOUND_404)));
 
-                    Logger.error(e.getMessage());
+                    Log.error(e.getMessage());
                 }
 
             } catch (HttpRequestLineException e) {
 
                 out.write(serverEnv.findErrorEndPointByStatusCode(StatusCode.BAD_REQUEST_400).renderEndPointResponse(serverEnv, errorRequest, new ResponseDataImpl(StatusCode.BAD_REQUEST_400)));
 
-                Logger.info(e.getMessage());
+                Log.info(e.getMessage());
             }
 
             out.flush();
@@ -134,10 +134,10 @@ public class ClientSocketThread implements Runnable {
 
         } catch (IOException e) {
 
-            Logger.error(e.getMessage());
+            Log.error(e.getMessage());
         }
 
-        Logger.debug("Call time in milliseconds: "+(System.currentTimeMillis()-startTime));
+        Log.debug("Call time in milliseconds: "+(System.currentTimeMillis()-startTime));
 
     }
 

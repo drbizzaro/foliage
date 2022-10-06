@@ -6,6 +6,6 @@ package org.foilage.authorization;
  */
 public interface AuthorizationAction {
 
-    public int getId();
+    int getId();
 
 }

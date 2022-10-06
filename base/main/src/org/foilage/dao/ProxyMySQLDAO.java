@@ -1,7 +1,7 @@
 package org.foilage.dao;
 
 import org.foilage.database.MySQLConnectionPool;
-import org.pmw.tinylog.Logger;
+import org.foilage.utils.log.Log;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -38,7 +38,7 @@ public abstract class ProxyMySQLDAO<T> {
 
     public String generateSQLErrorMessage(SQLException e, Class daoClass, Method method, String customErrorMessage) throws RuntimeException {
 
-        return generateSQLErrorMessage(e, daoClass, method, "", true);
+        return generateSQLErrorMessage(e, daoClass, method, customErrorMessage, true);
     }
 
     public String generateSQLErrorMessage(SQLException e, Class daoClass, Method method, String customErrorMessage, boolean logError) throws RuntimeException {
@@ -57,7 +57,7 @@ public abstract class ProxyMySQLDAO<T> {
         String msg = msgBuilder.toString();
 
         if(logError) {
-            Logger.error(msg);
+            Log.error(msg);
         }
 
         return msg;

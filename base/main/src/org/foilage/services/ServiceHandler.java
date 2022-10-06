@@ -1,6 +1,5 @@
 package org.foilage.services;
 
-
 import org.foilage.annotations.Authorization;
 import org.foilage.authorization.AuthType;
 import org.foilage.authorization.User;
@@ -8,7 +7,7 @@ import org.foilage.authorization.UserAuthAction;
 import org.foilage.authorization.UserAuthPerformer;
 import org.foilage.authorization.exceptions.NotAuthorizedException;
 import org.foilage.utils.checkers.AbstractNullChecker;
-import org.pmw.tinylog.Logger;
+import org.foilage.utils.log.Log;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
@@ -37,7 +36,7 @@ public class ServiceHandler<T> extends AbstractNullChecker implements Invocation
 
         } catch (InvocationTargetException e) {
             String msg = method.getDeclaringClass().getName()+"."+method.getName() + " - " + e.getCause();
-            Logger.error(msg);
+            Log.error(msg);
             throw e.getCause();
         }
     }
@@ -86,11 +85,11 @@ public class ServiceHandler<T> extends AbstractNullChecker implements Invocation
             }
         } catch(NullPointerException e) {
 
-            Logger.error(method.getName()+" has authorization annotation and must have a invocation user as in parameter!");
+            Log.error(method.getName()+" has authorization annotation and must have a invocation user as in parameter!");
         }
 
         String message = generateInvocationUserErrorMessage(method);
-        Logger.error(message);
+        Log.error(message);
         throw new IllegalArgumentException(message);
     }
 

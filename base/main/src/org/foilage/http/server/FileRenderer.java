@@ -1,7 +1,7 @@
 package org.foilage.http.server;
 
 import org.foilage.authorization.exceptions.NotAuthorizedException;
-import org.pmw.tinylog.Logger;
+import org.foilage.utils.log.Log;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -44,7 +44,7 @@ public enum FileRenderer {
 
         } catch (IOException e) {
 
-            Logger.error(e.getMessage());
+            Log.error(e.getMessage());
 
             return false;
         }

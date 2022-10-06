@@ -1,7 +1,7 @@
 package org.foilage.http.server;
 
 import org.foilage.authorization.Role;
-import org.pmw.tinylog.Logger;
+import org.foilage.utils.log.Log;
 
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
@@ -123,8 +123,8 @@ public abstract class ServerEndPoint <R extends ResponseData> {
         sb.append(responseData);
         sb.append("\r\n");
 
-        Logger.trace("-------------RESPONSE-------------");
-        Logger.trace(sb.toString());
+        Log.debug("-------------RESPONSE-------------");
+        Log.debug(sb.toString());
 
         try {
 

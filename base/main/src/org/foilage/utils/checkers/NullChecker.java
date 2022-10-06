@@ -1,6 +1,6 @@
 package org.foilage.utils.checkers;
 
-import org.pmw.tinylog.Logger;
+import org.foilage.utils.log.Log;
 
 import java.util.Collection;
 
@@ -15,7 +15,7 @@ public class NullChecker {
 
         if(variable == null) {
 
-            Logger.error(errorMessage);
+            Log.error(errorMessage);
             throw new IllegalArgumentException(errorMessage);
         }
 
@@ -31,7 +31,7 @@ public class NullChecker {
 
             } catch (ClassCastException e) {
 
-                Logger.debug(e.getMessage());
+                Log.debug(e.getMessage());
             }
         }
 
@@ -46,14 +46,14 @@ public class NullChecker {
 
                 if(childObject == null) {
 
-                    Logger.error(errorMessage);
+                    Log.error(errorMessage);
                     throw new IllegalArgumentException(errorMessage);
                 }
             }
 
         } catch(ClassCastException e) {
 
-            Logger.debug(e.getMessage());
+            Log.debug(e.getMessage());
         }
     }
 
@@ -65,14 +65,14 @@ public class NullChecker {
 
                 if(childObject == null) {
 
-                    Logger.error(errorMessage);
+                    Log.error(errorMessage);
                     throw new IllegalArgumentException(errorMessage);
                 }
             }
 
         } catch(ClassCastException e) {
 
-            Logger.debug(e.getMessage());
+            Log.debug(e.getMessage());
         }
     }
 

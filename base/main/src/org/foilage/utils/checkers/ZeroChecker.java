@@ -1,6 +1,6 @@
 package org.foilage.utils.checkers;
 
-import org.pmw.tinylog.Logger;
+import org.foilage.utils.log.Log;
 
 public class ZeroChecker {
 
@@ -14,7 +14,7 @@ public class ZeroChecker {
 
         if(variable == 0) {
 
-            Logger.error(errorMessage);
+            Log.error(errorMessage);
             throw new IllegalArgumentException(errorMessage);
         }
 
@@ -30,7 +30,7 @@ public class ZeroChecker {
 
         if(variable == 0) {
 
-            Logger.error(errorMessage);
+            Log.error(errorMessage);
             throw new IllegalArgumentException(errorMessage);
         }
 
@@ -46,7 +46,7 @@ public class ZeroChecker {
 
         if(variable == 0) {
 
-            Logger.error(errorMessage);
+            Log.error(errorMessage);
             throw new IllegalArgumentException(errorMessage);
         }
 
@@ -62,7 +62,7 @@ public class ZeroChecker {
 
         if(variable == 0) {
 
-            Logger.error(errorMessage);
+            Log.error(errorMessage);
             throw new IllegalArgumentException(errorMessage);
         }
 

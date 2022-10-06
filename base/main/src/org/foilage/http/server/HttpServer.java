@@ -1,7 +1,7 @@
 package org.foilage.http.server;
 
 import org.foilage.http.StatusCode;
-import org.pmw.tinylog.Logger;
+import org.foilage.utils.log.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,7 +63,7 @@ public class HttpServer {
 
             ServerSocket serverSocket = new ServerSocket(environment.getPort());
 
-            Logger.info("Http server " + environment.getServerName() + " running on port " + environment.getPort() + ".");
+            Log.info("Http server " + environment.getServerName() + " running on port " + environment.getPort() + ".");
 
             while(SERVER_RUNNING) {
 
@@ -73,13 +73,13 @@ public class HttpServer {
 
                 } catch(IOException e) {
 
-                    Logger.error(e.getMessage());
+                    Log.error(e.getMessage());
                 }
             }
 
         } catch(IOException e) {
 
-            Logger.error(e.getMessage());
+            Log.error(e.getMessage());
         }
 
         System.exit(0);

@@ -4,23 +4,23 @@ import java.time.LocalDateTime;
 
 public interface Address {
 
-    public int getId();
+    int getId();
 
-    public String getAddressee();
+    String getAddressee();
 
-    public String getCareOf();
+    String getCareOf();
 
-    public String getStreetAddress();
+    String getStreetAddress();
 
-    public String getPostalCode();
+    String getPostalCode();
 
-    public String getCity();
+    String getCity();
 
-    public Country getCountry();
+    Country getCountry();
 
-    public AddressType getType();
+    AddressType getType();
 
-    public LocalDateTime getValidFrom();
+    LocalDateTime getValidFrom();
 
-    public LocalDateTime getValidTo();
+    LocalDateTime getValidTo();
 }

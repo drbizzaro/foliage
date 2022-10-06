@@ -7,6 +7,6 @@ import org.foilage.authorization.exceptions.NotAuthorizedException;
  */
 public interface AuthorizationPerformer {
 
-    public void authorize(AuthorizationAction authorizationAction, String resource) throws NotAuthorizedException;
+    void authorize(AuthorizationAction authorizationAction, String resource) throws NotAuthorizedException;
 
 }

@@ -1,7 +1,7 @@
 package org.foilage.authorization;
 
 import org.foilage.authorization.exceptions.NotAuthorizedException;
-import org.pmw.tinylog.Logger;
+import org.foilage.utils.log.Log;
 
 public class UserAuthPerformer extends AbstractAuthorizationPerformer {
 
@@ -35,7 +35,7 @@ public class UserAuthPerformer extends AbstractAuthorizationPerformer {
             for (Role userRole: user.getUserRoles()) {
                 if (role == userRole) {
 
-                    Logger.info("User getId: " + user.getId() + " displayName: " + user.getDisplayName() + " denied access on role: " + role + " to: " + resource);
+                    Log.info("User getId: " + user.getId() + " displayName: " + user.getDisplayName() + " denied access on role: " + role + " to: " + resource);
                     throw new NotAuthorizedException();
                 }
             }
@@ -81,7 +81,7 @@ public class UserAuthPerformer extends AbstractAuthorizationPerformer {
             }
             errorBuilder.append("]");
 
-            Logger.info(errorBuilder.toString());
+            Log.info(errorBuilder.toString());
             throw new NotAuthorizedException();
         }
 

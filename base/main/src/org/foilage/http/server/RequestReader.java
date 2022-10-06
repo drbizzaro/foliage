@@ -3,7 +3,7 @@ package org.foilage.http.server;
 import org.foilage.http.RequestMethod;
 import org.foilage.http.exceptions.HttpRequestLineException;
 import org.foilage.model.MimeType;
-import org.pmw.tinylog.Logger;
+import org.foilage.utils.log.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,7 +38,7 @@ public enum RequestReader {
 
             } catch (Exception e) {
 
-                Logger.error(e.getMessage());
+                Log.error(e.getMessage());
             }
 
             bufferLength += read;
@@ -52,7 +52,7 @@ public enum RequestReader {
                     String headerString = new String(Arrays.copyOf(buffer, splitByte));
 
                     headerMap = parseHeaderMap(Arrays.asList(headerString.split("\r\n")));
-                    Logger.debug(headerString);
+                    Log.debug(headerString);
                     if(headerMap.containsKey("content-length")) {
 
                         contentLength = splitByte+Integer.parseInt(headerMap.get("content-length"));
@@ -68,7 +68,7 @@ public enum RequestReader {
 
         if(bufferLength>0) {
 
-            Logger.trace(new String(Arrays.copyOf(buffer, bufferLength)));
+            Log.trace(new String(Arrays.copyOf(buffer, bufferLength)));
 
             String headerString = new String(Arrays.copyOf(buffer, bufferLength));
 
@@ -253,11 +253,11 @@ public enum RequestReader {
 
                 } catch (ArrayIndexOutOfBoundsException e) {
 
-                    Logger.info("Malformed url parameter "+param);
+                    Log.info("Malformed url parameter "+param);
 
                 } catch (UnsupportedEncodingException e) {
 
-                    Logger.error("Unsupported encoding url parameter "+param);
+                    Log.error("Unsupported encoding url parameter "+param);
                 }
             }
         }
@@ -281,7 +281,7 @@ public enum RequestReader {
 
                     } catch (UnsupportedEncodingException e) {
 
-                        Logger.error("Unsupported encoding post parameter "+param);
+                        Log.error("Unsupported encoding post parameter "+param);
                     }
 
                 } else {

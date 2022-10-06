@@ -1,6 +1,6 @@
 package org.foilage.utils.checkers;
 
-import org.pmw.tinylog.Logger;
+import org.foilage.utils.log.Log;
 
 public class MaxLengthChecker {
 
@@ -22,7 +22,7 @@ public class MaxLengthChecker {
 
         if(text.length()>maxLength) {
 
-            Logger.error(errorMessage);
+            Log.error(errorMessage);
 
             throw new IllegalArgumentException(errorMessage);
         }

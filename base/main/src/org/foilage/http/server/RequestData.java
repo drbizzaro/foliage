@@ -1,7 +1,7 @@
 package org.foilage.http.server;
 
 import org.foilage.http.RequestMethod;
-import org.pmw.tinylog.Logger;
+import org.foilage.utils.log.Log;
 
 import java.util.List;
 import java.util.Map;
@@ -78,7 +78,7 @@ public class RequestData {
 
         } catch (NumberFormatException e) {
 
-            Logger.info("In parameter " + parameter + " with value " + parameterMap.get(parameter) + " not an integer.");
+            Log.info("In parameter " + parameter + " with value " + parameterMap.get(parameter) + " not an integer.");
 
             return Integer.MIN_VALUE;
         }
@@ -92,7 +92,7 @@ public class RequestData {
 
         } catch (NumberFormatException e) {
 
-            Logger.info("In parameter " + parameter + " with value " + parameterMap.get(parameter) + " not an float.");
+            Log.info("In parameter " + parameter + " with value " + parameterMap.get(parameter) + " not an float.");
 
             return Integer.MIN_VALUE;
         }
