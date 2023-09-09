@@ -7,12 +7,14 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.SQLException;
 
+import static org.foilage.utils.checkers.NullChecker.notNull;
+
 public abstract class ProxyMySQLDAO<T> {
 
     protected final MySQLConnectionPool connectionPool;
 
     public ProxyMySQLDAO(MySQLConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
+        this.connectionPool = notNull(connectionPool);
     }
 
     public T generateProxy() {

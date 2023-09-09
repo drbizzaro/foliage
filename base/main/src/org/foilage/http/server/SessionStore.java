@@ -1,8 +1,9 @@
 package org.foilage.http.server;
 
-import com.sun.org.apache.xml.internal.security.utils.Base64;
 import org.foilage.utils.Now;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,7 +92,7 @@ public enum SessionStore {
 
     private SessionObject addSession(String ip) {
 
-        SessionObject sessionObject = new SessionObject(Now.localDateTime(), Now.localDateTime(), Base64.encode((Math.random()*10000000000000L+ip+System.currentTimeMillis()).getBytes()), ip, true, false);
+        SessionObject sessionObject = new SessionObject(Now.localDateTime(), Now.localDateTime(), Base64.getEncoder().encodeToString((Math.random()*10000000000000L+ip+System.currentTimeMillis()).getBytes(StandardCharsets.UTF_8)), ip, true, false);
 
         activeMap.put(sessionObject.getSessionId(), sessionObject);
 

@@ -21,7 +21,7 @@ public class MySQLConnectionPool {
             protected Connection createObject() {
 
                 try {
-                    return DriverManager.getConnection("jdbc:mysql://localhost/"+credentials.getDatabase()+"?" +
+                    return DriverManager.getConnection("jdbc:mysql://localhost:"+credentials.getPort()+"/"+credentials.getDatabase()+"?" +
                             "user="+credentials.getUser()+"&password="+credentials.getPassword()+"&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone="+credentials.getServerTimeZone());
                             //"user="+credentials.getUser()+"&password="+credentials.getPassword()+"&useSSL=false&useUnicode=true&characterEncoding=utf8mb4&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone="+credentials.getServerTimeZone());
                             //"user="+credentials.getUser()+"&password="+credentials.getPassword()+"&useSSL=false&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone="+credentials.getServerTimeZone());
